@@ -1,0 +1,13 @@
+<div class="list" ng-controller='TaskDetailController'>	
+	<div class='row even' style="margin-top:10px">
+        <div class='columns small-6 medium-8'>
+            <p>
+                {{task.name}} <br>
+                {{task.description}}
+            </p>
+        </div>
+        <div class='columns small-6 medium-4'>
+            <a ng-click = "edit()", class = "button">Edit</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="panel small-centered columns small-12 medium-11" ng-controller='UserListController'>	
+    <div class="row">
+        <div class="columns small-12 medium-4">
+            <input id="nameInput" ng-model="nameIn" placeholder="name" autofocus>
+            <br>
+            <input id="emailInput" ng-model="emailIn" placeholder="email">
+        </div>
+        <div class="tw columns small-12 medium-4">
+            <p>
+                Name: {{nameIn}} <br>
+                Email: {{emailIn}}
+            <p>
+        </div>
+        <div class="columns small-12 medium-4">
+            <a ng-click = "add(nameIn, emailIn)", class = "button">Add User</a>
+        </div>
+    </div>
+</div>
