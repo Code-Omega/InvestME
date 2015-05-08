@@ -1,9 +1,8 @@
 // Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
-var Llama = require('./models/llama');
 var User = require('./models/users');
-var Task = require('./models/tasks');
+var Port = require('./models/portfolio');
 var bodyParser = require('body-parser');
 var router = express.Router();
 
@@ -21,7 +20,7 @@ mongoose.connect('mongodb://root:root@ds031922.mongolab.com:31922/final_498', fu
 var app = express();
 
 // Use environment defined port or 4000
-var port = process.env.PORT || 4000;
+var portt = process.env.PORT || 4000;
 
 //Allow CORS so that backend and frontend could pe put on different servers
 var allowCrossDomain = function(req, res, next) {
@@ -47,10 +46,6 @@ homeRoute.get(function(req, res) {
   res.json({ message: 'Hello World!' });
 });
 
-//Llama route
-var userRoute = router.route('/users');
-var portRoute = router.route('/portfolios');
-
 router.get('/users',function(req, res,next) {
   var ret = 'User';
   if (typeof req.query.where === 'undefined') ret = ret+'.find({})';
@@ -69,8 +64,8 @@ router.get('/users',function(req, res,next) {
   return;
 });
 
-router.get('/tasks',function(req, res,next) {
-  var ret = 'Task';
+router.get('/ports',function(req, res,next) {
+  var ret = 'Port';
   if (typeof req.query.where === 'undefined') ret = ret+'.find({})';
   else ret = ret+'.find('+req.query.where+')';
   if (typeof req.query.sort != 'undefined') ret = ret+'.sort('+req.query.sort+')';
@@ -81,8 +76,6 @@ router.get('/tasks',function(req, res,next) {
   ret = ret + ".exec(function(err,get){if(err) {var msg = '{\"message\": \"Server Error\",\"data\":'+JSON.stringify(get)+'}';"+
       " msg = JSON.parse(msg); res.statusCode = 500; res.json(msg); return next(err);}"+
       "var msg = '{\"message\": \"OK\",\"data\":'+JSON.stringify(get)+'}';msg = JSON.parse(msg);res.statusCode = 200;res.json(msg);});"
-  //console.log(ret);
-  //console.log("----");
   eval(ret);
   return;
 });
@@ -230,8 +223,8 @@ router.delete('/users/:id',function(req,res,next){
 
 //----------------------------
 
-router.post('/tasks',function(req,res,next){
-  Task.create(req.body,function(err,post){
+router.post('/ports',function(req,res,next){
+  Port.create(req.body,function(err,post){
     if(err) {
         var msg = '{"message": "Server Error","data":'+JSON.stringify(post)+'}';
         msg = JSON.parse(msg);
@@ -247,7 +240,7 @@ router.post('/tasks',function(req,res,next){
         res.status(500).json({message: 'Deadline is required',"data":[]});
         return;
     }
-    var msg = '{"message": "Task Added","data":'+JSON.stringify(post)+'}';
+    var msg = '{"message": "port Added","data":'+JSON.stringify(post)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 201;
     res.json(msg);
@@ -255,19 +248,19 @@ router.post('/tasks',function(req,res,next){
     });
 });
 
-router.options('/tasks',function(req,res,next){
+router.options('/ports',function(req,res,next){
   res.writeHead(200);
   res.end();
 });
 
-router.get('/tasks/:id',function(req,res,next){
-  Task.findOne({_id:req.params.id},function(err,get){
+router.get('/ports/:id',function(req,res,next){
+  Port.findOne({_id:req.params.id},function(err,get){
     if(err) {
         /*console.log("XX");
         console.log(err);
         console.log("XX");*/
         if (err.path == '_id') {
-            var msg = '{"message": "Task Not Found","data":[]}';
+            var msg = '{"message": "port Not Found","data":[]}';
             msg = JSON.parse(msg);
             res.statusCode = 404;
             res.json(msg);
@@ -280,7 +273,7 @@ router.get('/tasks/:id',function(req,res,next){
         return next(err);
     }
     if(JSON.stringify(get) == 'null') {
-        var msg = '{"message": "Task Not Found","data":[]}';
+        var msg = '{"message": "port Not Found","data":[]}';
         msg = JSON.parse(msg);
         res.statusCode = 404;
         res.json(msg);
@@ -294,11 +287,11 @@ router.get('/tasks/:id',function(req,res,next){
   });
 });
 
-router.put('/tasks/:id',function(req,res,next){
-  Task.findOneAndUpdate({_id:req.params.id},req.body,function(err,put){
+router.put('/ports/:id',function(req,res,next){
+  Port.findOneAndUpdate({_id:req.params.id},req.body,function(err,put){
     if(err) {
         if (err.path == '_id') {
-            var msg = '{"message": "Task Not Found","data":[]}';
+            var msg = '{"message": "port Not Found","data":[]}';
             msg = JSON.parse(msg);
             res.statusCode = 404;
             res.json(msg);
@@ -311,7 +304,7 @@ router.put('/tasks/:id',function(req,res,next){
         return next(err);
     }
     if(JSON.stringify(put) == 'null') {
-        var msg = '{"message": "Task Not Found","data":[]}';
+        var msg = '{"message": "port Not Found","data":[]}';
         msg = JSON.parse(msg);
         res.statusCode = 404;
         res.json(msg);
@@ -325,7 +318,7 @@ router.put('/tasks/:id',function(req,res,next){
         res.status(500).json({message: 'Deadline is required',"data":[]});
         return;
     }
-    var msg = '{"message": "Task Updated","data":'+JSON.stringify(put)+'}';
+    var msg = '{"message": "port Updated","data":'+JSON.stringify(put)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 200;
     res.json(msg);
@@ -333,11 +326,11 @@ router.put('/tasks/:id',function(req,res,next){
   });
 });
 
-router.delete('/tasks/:id',function(req,res,next){
-  Task.findOneAndRemove({_id:req.params.id},req.body,function(err,del){
+router.delete('/ports/:id',function(req,res,next){
+  Port.findOneAndRemove({_id:req.params.id},req.body,function(err,del){
     if(err) {
         if (err.path == '_id') {
-            var msg = '{"message": "Task Not Found","data":[]}';
+            var msg = '{"message": "port Not Found","data":[]}';
             msg = JSON.parse(msg);
             res.statusCode = 404;
             res.json(msg);
@@ -350,13 +343,13 @@ router.delete('/tasks/:id',function(req,res,next){
         return next(err);
     }
     if(JSON.stringify(del) == 'null') {
-        var msg = '{"message": "Task Not Found","data":[]}';
+        var msg = '{"message": "port Not Found","data":[]}';
         msg = JSON.parse(msg);
         res.statusCode = 404;
         res.json(msg);
         return;
     }
-    var msg = '{"message": "Task Removed","data":'+JSON.stringify(del)+'}';
+    var msg = '{"message": "port Removed","data":'+JSON.stringify(del)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 200;
     res.json(msg);
@@ -365,5 +358,5 @@ router.delete('/tasks/:id',function(req,res,next){
 });
 
 // Start the server
-app.listen(port);
-console.log('Server running on port ' + port);
+app.listen(portt);
+console.log('Server running on port ' + portt);

@@ -17,7 +17,7 @@ body{
   font-family: 'Abel', sans-serif;
   background-color: #2c343b;
   height:100%;
-  overflow:hidden;
+
 }
 .odd{
     background-color: #ECECEC;
@@ -56,7 +56,6 @@ body{
 }
 #logo{
   position: absolute;
-  background-color: #2c343b;
   width: 100%;
   z-index: 2;
   left: 0;
@@ -102,4 +101,26 @@ body{
 #test p {
   font-size: 1.0rem;
   line-height: 1.0;
+}
+#portfolio{
+  position: absolute;
+  background-color: #ffffff;
+  border-right: 2px solid #d44457;
+  width: 250px;
+  height:100%;
+  z-index: 1;
+  left: 0;
+  top: 0px;
+  margin-top: 80px;
+  text-align: center;
+}
+#portfolio li{
+  border-bottom: 2px solid #d44457;
+  background-color: #ffffff;
+  color: #d44457;
+  font-size: 20px;
+  line-height: 40px;
+  margin: 0 auto;
+  width: 100%;
+  height: 40px;
 }

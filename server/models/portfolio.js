@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var xx   = new mongoose.Schema({
+var portfolioScheme   = new mongoose.Schema({
   name: {type:String},
   description: String,
   stock_list: [String],
@@ -7,4 +7,4 @@ var xx   = new mongoose.Schema({
   assignedUserName : {type:String,default:"unassigned"},
   dateCreated : {type:Date,default:Date.now}
 });
-module.exports = mongoose.model('Port', xx);
+module.exports = mongoose.model('port', portfolioScheme);

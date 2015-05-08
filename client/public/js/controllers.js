@@ -64,7 +64,6 @@ console.log("bd");
 directives.directive('feed',function(){
   return{
     link: function(scope,element){
-      $("#test").mCustomScrollbar();
       $('#test').rssfeed('http://finance.yahoo.com/rss/headline?s=^GSPC,^dji,^ixic', {limit: 100, header:false, content:false, media:false, date:false});
     }
   }
