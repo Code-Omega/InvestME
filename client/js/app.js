@@ -1,22 +1,14 @@
 // var demoApp = angular.module('demoApp', ['demoControllers']);
 
-var demoApp = angular.module('demoApp', ['ngRoute', 'demoControllers', 'demoServices', '720kb.datepicker', 'directives']);
+var demoApp = angular.module('demoApp', ['ngRoute', 'demoControllers', 'demoServices', 'directives']);
 
 //var app = angular.module('app', ['720kb.datepicker']);
 
 demoApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-    when('/firstview', {
-    templateUrl: 'partials/firstview.html',
-    controller: 'FirstController'
-  }).
-  when('/secondview', {
-    templateUrl: 'partials/secondview.html',
-    controller: 'SecondController'
-  }).
-  when('/settings', {
-    templateUrl: 'partials/settings.html',
-    controller: 'SettingsController'
+  when('/', {
+    templateUrl: 'partials/main.html',
+    controller: 'MainController'
   }).
   when('/llamalist', {
     templateUrl: 'partials/llamalist.html',
@@ -51,6 +43,6 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     controller: 'TaskEditController'
   }).
   otherwise({
-    redirectTo: '/settings'
+    redirectTo: '/'
   });
 }]);
