@@ -9,7 +9,6 @@ jQuery(document).ready(function($){
 
 	//change visible slide
 	$('.cd-slider-nav li').on('click', function(event){
-		event.preventDefault();
 		var selectedItem = $(this);
 		if(!selectedItem.hasClass('selected')) {
 			// if it's not already selected
@@ -28,11 +27,11 @@ jQuery(document).ready(function($){
 	function nextSlide(container, pagination, n){
 		var visibleSlide = container.find('.selected'),
 			navigationDot = pagination.find('.selected');
-		
+
 		visibleSlide.removeClass('selected from-left from-right').addClass('is-moving').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
 			visibleSlide.removeClass('is-moving');
 		});
-		
+
 		container.children('li').eq(n).addClass('selected from-right').prevAll().addClass('move-left');
 		navigationDot.removeClass('selected')
 		pagination.find('li').eq(n).addClass('selected');
@@ -43,7 +42,7 @@ jQuery(document).ready(function($){
 	function prevSlide(container, pagination, n){
 		var visibleSlide = container.find('.selected'),
 			navigationDot = pagination.find('.selected');
-		
+
 		visibleSlide.removeClass('selected from-left from-right').addClass('is-moving').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
 			visibleSlide.removeClass('is-moving');
 		});
@@ -59,7 +58,7 @@ jQuery(document).ready(function($){
 		container.find('.cd-bg-video-wrapper').each(function(){
 			var videoWrapper = $(this);
 			if( videoWrapper.is(':visible') ) {
-				// if visible - we are not on a mobile device 
+				// if visible - we are not on a mobile device
 				var	videoUrl = videoWrapper.data('video'),
 					video = $('<video loop><source src="'+videoUrl+'.mp4" type="video/mp4" /><source src="'+videoUrl+'.webm" type="video/webm" /></video>');
 				video.appendTo(videoWrapper);

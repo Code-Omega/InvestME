@@ -2,27 +2,9 @@ var demoControllers = angular.module('demoControllers', []);
 
 var directives = angular.module('directives', []);
 
-demoControllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
+demoControllers.controller('MainController', ['$scope', 'CommonData'  , function($scope, CommonData) {}]);
 
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
-}]);
-
-demoControllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
-
-  $scope.getData = function(){
-    $scope.data = CommonData.getData();
-
-  };
-
-}]);
+demoControllers.controller('PortfolioController', ['$scope', 'CommonData' , function($scope, CommonData) {}]);
 
 
 demoControllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
@@ -49,7 +31,7 @@ demoControllers.controller('UserListController', ['$scope', '$http', 'Users', 'U
             var update = 'assignedUserName=unassigned&assignedUser='
             Task.edit(taskRemove[i],update).success(function(data){
                 //console.log(data.data.name);
-            }); 
+            });
         }
         Users.get().success(function(data){
         $scope.users = data.data;
@@ -60,7 +42,7 @@ demoControllers.controller('UserListController', ['$scope', '$http', 'Users', 'U
       var dataObj = {
 				name : name,
 				email : email,
-		};	
+		};
     Users.post(name,email).success(function(data){
         alert(data.message);
         Users.get().success(function(data){
@@ -78,6 +60,15 @@ $scope.$broadcast('dataloaded');
 console.log("bd");
 
 }]);
+
+directives.directive('feed',function(){
+  return{
+    link: function(scope,element){
+      $("#test").mCustomScrollbar();
+      $('#test').rssfeed('http://finance.yahoo.com/rss/headline?s=^GSPC,^dji,^ixic', {limit: 100, header:false, content:false, media:false, date:false});
+    }
+  }
+})
 
 directives.directive('myCustomer', function() {
   return {
@@ -137,7 +128,7 @@ svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis);
-    } 
+    }
   };
 });
 
@@ -149,9 +140,9 @@ demoControllers.controller('UserDetailController', ['$scope', '$http', 'User', '
   $scope.user = User.user;
   $scope.task = Task.task;
   $scope.hideCompletedTasks = true;
-    
+
     $scope.showCompletedTaskF = function(){$scope.hideCompletedTasks = !$scope.hideCompletedTasks; console.log($scope.hideCompletedTasks);}
-    
+
   $scope.getTaskByID = function(taskID){
     Tasks.getByID(taskID).success(function(data){
           //alert(JSON.stringify(data.data));
@@ -169,7 +160,7 @@ demoControllers.controller('UserDetailController', ['$scope', '$http', 'User', '
             Tasks.getByID(pendingTasks[i]).success(function(data){
                 result.push(data.data);
                 //console.log(data.data.name);
-            }); 
+            });
         }
         return result;
   };
@@ -186,9 +177,9 @@ demoControllers.controller('UserDetailController', ['$scope', '$http', 'User', '
                 $scope.user = data.data;
             });
         });
-    
+
     }
-    
+
    /*$scope.showCompletedTasks = function(){
     for(var i=0;i<$scope.user.pendingTasks.length;i++){
       Task.getByID($scope.user.pendingTasks.[i]).success(function(data){
@@ -197,7 +188,7 @@ demoControllers.controller('UserDetailController', ['$scope', '$http', 'User', '
         //$scope.tasks.push(data2.data);
       });
     }*/
-    
+
 }]);
 
 demoControllers.controller('TaskListController', ['$scope', '$http', 'Tasks', 'Task', '$window', '$location', function($scope, $http, Tasks, Task, $window, $location) {
@@ -222,7 +213,7 @@ demoControllers.controller('TaskListController', ['$scope', '$http', 'Tasks', 'T
         $scope.sort = $scope.option.string;
   });
   $scope.$watch('sortTaskStatus',function(){
-        if($scope.sortTaskStatus==1) $scope.showComplete = '"completed":"true"'; 
+        if($scope.sortTaskStatus==1) $scope.showComplete = '"completed":"true"';
         else if($scope.sortTaskStatus==2) $scope.showComplete = '"completed":"false"';
         else $scope.showComplete='';
   });
@@ -313,7 +304,7 @@ demoControllers.controller('TaskDetailController', ['$scope', '$http', 'Task', '
   $scope.edit = function(){
     $location.path("/taskedit");
   }
-  
+
 }]);
 
 demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'User', 'Users', '$window' ,'$location', function($scope, $http, Task, User, Users, $window,$location) {
@@ -324,13 +315,13 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
   $scope.descriptionIn = $scope.task.description;
   $scope.assignedUserIn = $scope.task.assignedUser;
   $scope.completedIn = $scope.task.completed;}
-    
+
     //--------
-    
+
     $scope.userList=[];
     $scope.selectUser;
     $scope.origUser;
-    
+
   $scope.$watch('nameNn',function(){
         Users.get().success(function(data){
         $scope.userList = data.data;
@@ -340,7 +331,7 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
       $scope.option = $scope.userList[userIndex].name;
     });
   });
-    
+
   $scope.$watch('task._id',function(){
     Users.get().success(function(data){
     $scope.userList = data.data;
@@ -357,7 +348,7 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
       $scope.option = $scope.userList[userIndex].name;
     });
   });
-      
+
   $scope.$watch('selectUser',function(){
       if (typeof $scope.selectUser !='undefined'){
           if(typeof $scope.selectUser !='object') {$scope.selectUser = JSON.parse($scope.selectUser);}
@@ -367,23 +358,23 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
           $scope.assignedUserNn = $scope.selectUser._id;
       }
   })
-    
+
   //----------
-    
+
   $scope.edit = function(task){
     var update =    'name='+$scope.nameIn+
                     '&deadline='+$scope.deadlineIn+
                     '&description='+$scope.descriptionIn+
                     '&assignedUser='+$scope.assignedUserIn+
                     '&completed='+$scope.completedIn;
-      
+
       Task.edit(task._id,update).success(function(data){
         alert(data.message);
         Task.getByID(task._id).success(function(data){
             Task.task = data.data;
             $location.path("/taskdetail");
         });
-      
+
       console.log("Hererid");
       if ($scope.origUser) {
         var taskArray = $scope.origUser.pendingTasks;
@@ -397,7 +388,7 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
         //console.log(assignment);
         Task.assignToUser($scope.assignedUserNn,assignment);
       }
-      
+
         //console.log("Hereadd");
         var taskArray = $scope.selectUser.pendingTasks;
         taskArray.splice(0, 0, data.data._id);
@@ -409,18 +400,18 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
         }
         console.log(assignment);
         Task.assignToUser($scope.assignedUserNn,assignment);
-        
+
         //$location.path("/taskdetail");
     });
   };
-    
+
   $scope.add = function(task){
     var info =      'name='+$scope.nameNn+
                     '&deadline='+$scope.deadlineNn+
                     '&description='+$scope.descriptionNn+
                     '&assignedUser='+$scope.assignedUserNn+
                     '&completed='+$scope.completedNn;
-      
+
     Task.post(info).success(function(data){
         alert(data.message);
         Task.getByID(data.data._id).success(function(data){
@@ -441,9 +432,9 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
         //$location.path("/taskdetail");
     });
   };
-    
-    
-    
+
+
+
   /*$scope.userList = User.users;
     console.log("xx");
     console.log($scope.userList);
@@ -452,7 +443,7 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
           console.log(User.users);
       console.log("xx");
   });*/
-                            
+
   /*$scope.$watch('[assignedUserIn]',function(){
       console.log($scope.userList[0]._id);
       for (var i = 0; i < $scope.userList.length; i++) {
@@ -461,7 +452,7 @@ demoControllers.controller('TaskEditController', ['$scope', '$http', 'Task', 'Us
       }
       $scope.option = $scope.userList[userIndex];
   });*/
-      
+
 
 }]);
 
@@ -469,11 +460,9 @@ demoControllers.controller('SettingsController', ['$scope' , '$window' , functio
   $scope.url = $window.sessionStorage.baseurl;
 
   $scope.setUrl = function(){
-    $window.sessionStorage.baseurl = $scope.url; 
+    $window.sessionStorage.baseurl = $scope.url;
     $scope.displayText = "URL set";
 
   };
 
 }]);
-
-

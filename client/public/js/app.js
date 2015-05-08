@@ -10,37 +10,9 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/main.html',
     controller: 'MainController'
   }).
-  when('/llamalist', {
-    templateUrl: 'partials/llamalist.html',
-    controller: 'LlamaListController'
-  }).
-  when('/userlist', {
-    templateUrl: 'partials/userlist.html',
-    controller: 'UserListController'
-  }).
-  when('/userdetail', {
-    templateUrl: 'partials/userdetail.html',
-    controller: 'UserDetailController'
-  }).
-  when('/useredit', {
-    templateUrl: 'partials/useredit.html',
-    controller: 'UserListController'
-  }).
-  when('/tasklist', {
-    templateUrl: 'partials/tasklist.html',
-    controller: 'TaskListController'
-  }).
-  when('/taskdetail', {
-    templateUrl: 'partials/taskdetail.html',
-    controller: 'TaskDetailController'
-  }).
-  when('/taskedit', {
-    templateUrl: 'partials/taskedit.html',
-    controller: 'TaskEditController'
-  }).
-  when('/taskadd', {
-    templateUrl: 'partials/taskadd.html',
-    controller: 'TaskEditController'
+  when('/portfolio', {
+    templateUrl: 'partials/portfolio.html',
+    controller: 'PortfolioController'
   }).
   otherwise({
     redirectTo: '/'
