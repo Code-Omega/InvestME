@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
-var tasksScheme   = new mongoose.Schema({
+var portfolioScheme   = new mongoose.Schema({
   name: {type:String},
   description: String,
-  pendingTasks : String,
-  deadline : {type:Date},
-  completed : {type:Boolean,default:false},
+  stock_list: [String]
   assignedUser : String,
   assignedUserName : {type:String,default:"unassigned"},
   dateCreated : {type:Date,default:Date.now}
 });
-module.exports = mongoose.model('Tasks', tasksScheme);
+module.exports = mongoose.model('Portfolio', tasksScheme);

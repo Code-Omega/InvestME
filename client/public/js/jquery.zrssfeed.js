@@ -131,7 +131,7 @@
 				'</div>';
 
 		// Add body
-		html += '<ul class="list-group">';
+		html += '<ul class="">';
 
 
 		// Add feeds
@@ -185,7 +185,7 @@
 			if (options.linkredirect) feedLink = encodeURIComponent(feedLink);
 			rowArray[rowIndex]['html'] = '<'+ options.titletag +'><a href="'+ options.linkredirect + feedLink +'" title="View this feed at '+ feeds.title +'">'+ entry.title +'</a></'+ options.titletag +'>'
 
-			if (options.date && pubDate) rowArray[rowIndex]['html'] += '<div>'+ pubDate +'</div>'
+			if (options.date && pubDate) rowArray[rowIndex]['html'] += '<p>'+ pubDate +'</p>'
 			if (options.content) {
 
 				// Use feed snippet if available and optioned
@@ -247,7 +247,7 @@
 		// Add rows to output
 		$.each(rowArray, function(e) {
 
-			html += '<div class="list-group-item '+row+'">' + rowArray[e]['html'] + '</div>';
+			html += '<li class="" '+row+'">' + rowArray[e]['html'] + '</li>';
 
 			// Alternate row classes
 			if (row == 'odd') {

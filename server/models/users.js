@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var usersScheme   = new mongoose.Schema({
   name: {type:String},
   email: {type:String,index: { unique: true }},
-  pendingTasks : [String],
+  portfolios : [String],
   dateCreated : {type:Date,default:Date.now}
 });
 module.exports = mongoose.model('Users', usersScheme);

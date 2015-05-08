@@ -9,7 +9,7 @@ var router = express.Router();
 
 //replace this with your Mongolab URL
 //mongoose.connect('mongodb://localhost/mp3');
-mongoose.connect('mongodb://rooty:rootypass@ds043981.mongolab.com:43981/dbmp3', function(err) {
+mongoose.connect('mongodb://root:root@ds031922.mongolab.com:31922/final_498', function(err) {
     if(err) {
         console.log('connection error', err);
     } else {
@@ -48,39 +48,8 @@ homeRoute.get(function(req, res) {
 });
 
 //Llama route
-var llamaRoute = router.route('/llamas');
 var userRoute = router.route('/users');
-var taskRoute = router.route('/tasks');
-
-var parser = function(ep, req,res,next) {
-  var ret = 'Llama';
-  if (typeof req.query.where === 'undefined') ret = ret+'.find({})';
-  else ret = ret+'.find('+req.query.where+')';
-  if (typeof req.query.sort != 'undefined') ret = ret+'.sort('+req.query.sort+')';
-  if (typeof req.query.select != 'undefined') ret = ret+'.select('+req.query.select+')';
-  if (typeof req.query.skip != 'undefined') ret = ret+'.skip('+req.query.skip+')';
-  if (typeof req.query.limit != 'undefined') ret = ret+'.limit('+req.query.limit+')';
-  if (typeof req.query.count != 'undefined') ret = ret+'.count('+req.query.count+')';
-  ret = ret + ".exec(function(err,get){if(err) return next(err); res.json(get);});"
-  //console.log(ret);
-  //console.log("----");
-  eval(ret);
-}
-
-llamaRoute.get(function(req,res,next) {
-  var ret = 'Llama';
-  if (typeof req.query.where === 'undefined') ret = ret+'.find({})';
-  else ret = ret+'.find('+req.query.where+')';
-  if (typeof req.query.sort != 'undefined') ret = ret+'.sort('+req.query.sort+')';
-  if (typeof req.query.select != 'undefined') ret = ret+'.select('+req.query.select+')';
-  if (typeof req.query.skip != 'undefined') ret = ret+'.skip('+req.query.skip+')';
-  if (typeof req.query.limit != 'undefined') ret = ret+'.limit('+req.query.limit+')';
-  if (typeof req.query.count != 'undefined') ret = ret+'.count('+req.query.count+')';
-  ret = ret + ".exec(function(err,get){if(err) return next(err); res.json(get);});"
-  //console.log(ret);
-  //console.log("----");
-  eval(ret);
-});
+var portRoute = router.route('/portfolios');
 
 router.get('/users',function(req, res,next) {
   var ret = 'User';
@@ -116,39 +85,6 @@ router.get('/tasks',function(req, res,next) {
   //console.log("----");
   eval(ret);
   return;
-});
-
-llamaRoute.post(function(req,res,next){
-  Llama.create(req.body,function(err,post){
-    if(err) return next(err);
-    res.json(post);
-  });
-});
-
-llamaRoute.options(function(req,res,next){
-  res.writeHead(200);
-  res.end();
-});
-
-router.get('/llamas/:id',function(req,res,next){
-  Llama.findOne({_id:req.params.id},function(err,get){
-    if(err) return next(err);
-    res.json(get);
-  });
-});
-
-router.put('/llamas/:id',function(req,res,next){
-  Llama.findOneAndUpdate({_id:req.params.id},req.body,function(err,put){
-    if(err) return next(err);
-    res.json(put);
-  });
-});
-
-router.delete('/llamas/:id',function(req,res,next){
-  Llama.findOneAndRemove({_id:req.params.id},req.body,function(err,del){
-    if(err) return next(err);
-    res.json(del);
-  });
 });
 
 //----------------------------
