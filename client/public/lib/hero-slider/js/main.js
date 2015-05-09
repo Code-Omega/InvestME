@@ -23,6 +23,33 @@ jQuery(document).ready(function($){
 			updateNavigationMarker(selectedPosition+1);
 		}
 	});
+    
+    	//change visible slide
+	$('.cd-slider-nav infoSlide li').on('click', function(event){
+        event.preventDefault();
+		var selectedItem = $(this);
+		if(!selectedItem.hasClass('selected')) {
+			// if it's not already selected
+			var selectedPosition = selectedItem.index(),
+				activePosition = $('.cd-hero-slider .selected').index();
+			if( activePosition < selectedPosition) {
+				nextSlide($('.cd-hero-slider'), $('.cd-slider-nav'), selectedPosition);
+			} else {
+				prevSlide($('.cd-hero-slider'), $('.cd-slider-nav'), selectedPosition);
+			}
+
+			updateNavigationMarker(selectedPosition+1);
+		}
+	});
+    $('.2ndbtn').on('click', function(event){
+        event.preventDefault();
+        $('#si').click();
+	});
+    $('.3rdbtn').on('click', function(event){
+        event.preventDefault();
+        $('#rg').click();
+	});
+
 
 	function nextSlide(container, pagination, n){
 		var visibleSlide = container.find('.selected'),
