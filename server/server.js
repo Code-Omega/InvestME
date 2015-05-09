@@ -1,6 +1,10 @@
 // Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
+var express = require('express')
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/users');
 var Port = require('./models/portfolio');
 var bodyParser = require('body-parser');
@@ -45,6 +49,79 @@ var homeRoute = router.route('/');
 homeRoute.get(function(req, res) {
   res.json({ message: 'Hello World!' });
 });
+
+
+//-authentication-authentication-authentication-authentication-authentication-authentication-authentication--authentication-\
+
+
+  app.use(express.static('public'));
+  //app.use(cookieParser());
+ // app.use(session({ secret: 'keyboard cat' }));
+  app.use(session({secret:'lets invest',resave: true, saveUninitialized: false}));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  //app.use(flash());
+
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, done) {
+      console.log("-----");
+    User.findOne({ email: email }, function (err, user) {
+      if (err) { console.log("err"); return done(err); }
+      if (!user) { console.log("no user");
+        return done(null, false, { message: 'Incorrect Email.' });
+      }
+      //if (!user.validPassword(password)) { console.log("wrong password");
+      //if (user.password != password) { console.log("wrong password");
+      var bcrypt = require('bcrypt');
+      if (!bcrypt.compareSync(password, user.password)) { console.log("wrong password");
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+        console.log("good");
+        //$window.sessionStorage.user = user;
+        console.log(user);
+        console.log(done);
+      return done(null, user);
+    });
+  }
+));
+    
+    passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+    
+/*app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/',
+                                   failureFlash: true
+                                 })
+);*/
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    // Redirect if it fails
+    if (!user) { console.log('info: '+info); return res.status(200).json(info); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      // Redirect if it succeeds
+      return res.status(200).json({message: 'Logged in',"data": user.name});
+    });
+  })(req, res, next);
+});
+
+
+
+//-authentication-authentication-authentication-authentication-authentication-authentication-authentication--authentication-/
+
 
 router.get('/users',function(req, res,next) {
   var ret = 'User';

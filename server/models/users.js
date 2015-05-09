@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var usersScheme   = new mongoose.Schema({
   name: {type:String},
   email: {type:String,index: { unique: true }},
+  password: {type:String},
   portfolios : [String],
   dateCreated : {type:Date,default:Date.now}
 });
