@@ -8,11 +8,11 @@ demoApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
     templateUrl: 'partials/main.html',
-    controller: 'MainController'
+    controller: 'FeedController'
   }).
   when('/portfolio', {
     templateUrl: 'partials/portfolio.html',
-    controller: 'PortfolioController'
+    controller: 'DataController'
   }).
   otherwise({
     redirectTo: '/'

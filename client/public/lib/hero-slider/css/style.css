@@ -514,7 +514,7 @@ Slider navigation
   position: absolute;
   width: 100%;
   top: 0;
-  z-index: 9999;
+  z-index: 95;
   text-align: center;
   height: 55px;
   background-color: rgb(2, 14, 14);
@@ -607,7 +607,7 @@ Slider navigation
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: url(../assets/cd-icon-navigation.svg) no-repeat 0 0;
+  //background: url(../assets/cd-icon-navigation.svg) no-repeat 0 0;
 }
 .no-touch .cd-slider-nav a:hover {
   background-color: rgba(0, 1, 1, 0.5);

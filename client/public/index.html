@@ -14,6 +14,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="./lib/scroller/jquery.mCustomScrollbar.css" />
   <link rel="stylesheet" href="./lib/hero-slider/css/style.css"> <!-- Resource style -->
@@ -23,23 +24,27 @@
 </head>
 
 
-<body>
+<body ng-controller="MainController">
     <div class="cd-slider-nav">
       <nav>
         <span class="cd-marker item-1"></span>
         <ul>
           <li class="selected"><a href="#/">Feed</a></li>
-          <li><a href="#/portfolio">Fundamentals</a></li>
+          <li><a href="#/portfolio">Data</a></li>
           <li><a href="#/charts">Chart</a></li>
           <li><a href="#0">Search</a></li>
           <li><a href="#0">Options</a></li>
         </ul>
       </nav>
     </div>
+    <div id="portbtn">
+      <i class="fa fa-connectdevelop"></i>
+    </div>
     <div id="portfolio">
       <ul>
-        <li><p>HIIIIII</p></li>
+        <li ng-repeat="x in ports"><p>{{x.name}}</p></li>
         <li><p>DUDEEEE</p></li>
+        <li><h2>Add</h2></li>
       </ul>
     </div>
   <div ng-view></div>

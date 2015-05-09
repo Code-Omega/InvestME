@@ -7,11 +7,11 @@ angular.module('demoServices', [])
                 return data;
             },
             setData : function(newData){
-                data = newData;                
+                data = newData;
             }
         }
     })
-    .factory('Llamas', function($http, $window) {      
+    .factory('Llamas', function($http, $window) {
         return {
             get : function() {
                 var baseUrl = $window.sessionStorage.baseurl;
@@ -19,10 +19,9 @@ angular.module('demoServices', [])
             }
         }
     })
-    .factory('Users', function($http, $window) {  
+    .factory('Users', function($http, $window) {
         var factory = {};
         var baseUrl = $window.sessionStorage.baseurl;
-        //return {
             factory.get = function() {
                 var baseUrl = $window.sessionStorage.baseurl;
                 return $http.get(baseUrl+'/api/users');
@@ -31,15 +30,6 @@ angular.module('demoServices', [])
                 return $http.delete(baseUrl+'/api/users'+'/'+id);
             }
             factory.post = function(name,email) {
-                /*var string = "name="+name+"&email="+email;
-                var data = $.param({
-                    json: JSON.stringify({
-                        name: name,
-                        email: email
-                    })
-                });*/
-                //var headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
-                //return $http.post(baseUrl+'/api/users',dataobj, headers);
                 return $http({
                     method: 'POST',
                     url: baseUrl+'/api/users',
@@ -47,7 +37,27 @@ angular.module('demoServices', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
-        //}
+        return factory;
+    })
+    .factory('Ports', function($http, $window) {
+        var factory = {};
+        var baseUrl = "http://localhost:4000";
+            factory.get = function() {
+                //var baseUrl = $window.sessionStorage.baseurl;
+                return $http.get(baseUrl+'/api/ports');
+            }
+            factory.delete = function(id) {
+                return $http.delete(baseUrl+'/api/ports'+'/'+id);
+            }
+            factory.post = function(name,email) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl+'/api/ports',
+                    data: "name=" + name + "&email="+email,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+            factory.ports;
         return factory;
     })
     .factory('User',function($http,$window){
@@ -65,9 +75,9 @@ angular.module('demoServices', [])
             }
             return factory;
     })
-    .factory('Tasks', function($http, $window) {      
+    .factory('Tasks', function($http, $window) {
         var factory = {};
-        var baseUrl = $window.sessionStorage.baseurl;
+        var baseUrl = "localhost:4000";
         //return {
             factory.get = function(begin,num,sortby,showComplete,order) {
                 return $http.get(baseUrl+'/api/tasks'+'?where={'+showComplete+'}&sort={'+sortby+order+'}&skip='+begin+'&limit='+num);
