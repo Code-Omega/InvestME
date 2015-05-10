@@ -10,7 +10,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
   })
 }]);
 
-demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports'  , function($scope, $http,$window, Ports) {
+demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
   Ports.get().success(function(data){
     $scope.ports = data.data;
     $scope.list = Ports.list = data.data[0].stock_list[0];
@@ -33,6 +33,9 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
       console.log($scope.stock);
     });
   }
+  $scope.$watch(function(){
+    $scope.usernameDisplay = Users.user;
+  })
 }]);
 
 demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
@@ -41,9 +44,17 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
-    console.log($window.sessionStorage.user.email);
-    if ($window.sessionStorage.user.email!=undefined)$scope.usernameDisplay = $window.sessionStorage.user.email;
-    else $scope.usernameDisplay = 'New Guest';
+    console.log(window.localStorage);
+    if (window.localStorage.user!="undefined"){
+      $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
+      Users.user = $scope.usernameDisplay;
+      Users.email = JSON.parse(window.localStorage.getItem("user")).email;
+    }
+    else{
+      $scope.usernameDisplay = 'Login';
+      Users.user = 'Login';
+      Users.email = 'a@b';
+    }
     $scope.login = function(email,password) {
         var outPacket={
 				      email : email,
@@ -51,9 +62,15 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         };
         Login.post(email, password).success(function(done){
         alert("good"+done.message);
-        console.log(done.data);
-        $window.sessionStorage.user = done.data;
-        $scope.usernameDisplay = done.data.email;
+        if (done.message == "Logged in") {
+          //console.log(done.data);
+          //$window.localStorage.user = done.data;
+          window.localStorage.setItem("user",JSON.stringify(done.data));
+          Users.user = done.data.name;
+          Users.email = done.data.email;
+          //console.log(window.localStorage);
+          $scope.usernameDisplay = done.data.email;
+        }
     }).error(function(done){
         alert("bad"+done.message);
     });

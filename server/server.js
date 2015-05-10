@@ -57,10 +57,13 @@ homeRoute.get(function(req, res) {
   app.use(express.static('public'));
   //app.use(cookieParser());
  // app.use(session({ secret: 'keyboard cat' }));
-  app.use(session({secret:'lets invest',resave: true, saveUninitialized: false}));
+  /*app.use(session({secret:'lets invest',resave: true, saveUninitialized: false}));
   app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(passport.session());*/
+  router.use(session({secret:'lets invest',resave: true, saveUninitialized: false}));
   router.use(passport.initialize());
+  router.use(passport.session());
+  //router.use(passport.initialize());
   //app.use(flash());
 
 

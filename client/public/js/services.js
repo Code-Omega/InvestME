@@ -35,6 +35,8 @@ angular.module('demoServices', [])
     .factory('Users', function($http, $window) {
         var factory = {};
         var baseUrl = "http://localhost:4000";
+            factory.user;
+            factory.email;
             factory.get = function() {
                 var baseUrl = $window.sessionStorage.baseurl;
                 return $http.get(baseUrl+'/api/users');
