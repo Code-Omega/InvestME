@@ -11,11 +11,27 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
 }]);
 
 demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
-  Ports.get().success(function(data){
-    $scope.ports = data.data;
-    $scope.list = Ports.list = data.data[0].stock_list[0];
-    Ports.ports = data.data;
-  });
+  if (window.localStorage.length>0){
+      console.log("hello "+window.localStorage.getItem("user"));
+      $scope.ports = [];
+      for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+          console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+          Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+              console.log("dt: "+JSON.stringify(data.data));
+            $scope.ports.push((data.data));
+              console.log("sp: "+$scope.ports);
+          });
+      }if ($scope.ports.length > 0){
+      $scope.list = Ports.list = $scope.ports[0].stock_list[0];
+      }
+      Ports.ports = $scope.ports;
+  } else {
+      Ports.get().success(function(data){
+        $scope.ports = data.data;
+        $scope.list = Ports.list = data.data[0].stock_list[0];
+        Ports.ports = data.data;
+      });
+  }
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
@@ -77,6 +93,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
           //console.log(done.data);
           //$window.localStorage.user = done.data;
           window.localStorage.setItem("user",JSON.stringify(done.data));
+          console.log(done.data);
           Users.user = done.data.name;
           Users.email = done.data.email;
           //console.log(window.localStorage);

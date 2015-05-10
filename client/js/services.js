@@ -61,6 +61,9 @@ angular.module('demoServices', [])
                 //var baseUrl = $window.sessionStorage.baseurl;
                 return $http.get(baseUrl+'/api/ports');
             }
+            factory.getByID = function(id) {
+                return $http.get(baseUrl+'/api/ports'+'/'+id);
+            }
             factory.delete = function(id) {
                 return $http.delete(baseUrl+'/api/ports'+'/'+id);
             }
