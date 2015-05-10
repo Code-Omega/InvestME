@@ -10,7 +10,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
   })
 }]);
 
-demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
+demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports'  , function($scope, $http,$window, Ports) {
   Ports.get().success(function(data){
     $scope.ports = data.data;
     $scope.list = Ports.list = data.data[0].stock_list[0];
@@ -41,12 +41,13 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
-    if ($window.sessionStorage.user)$scope.usernameDisplay = $window.sessionStorage.user.email;
+    console.log($window.sessionStorage.user.email);
+    if ($window.sessionStorage.user.email!=undefined)$scope.usernameDisplay = $window.sessionStorage.user.email;
     else $scope.usernameDisplay = 'New Guest';
     $scope.login = function(email,password) {
         var outPacket={
-				email : email,
-                password : password
+				      email : email,
+              password : password
         };
         Login.post(email, password).success(function(done){
         alert("good"+done.message);
