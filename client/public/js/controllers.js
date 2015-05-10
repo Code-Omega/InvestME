@@ -11,7 +11,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
 }]);
 
 demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
-  if (window.localStorage.length>0){
+if (window.localStorage.length>0){
       console.log("hello "+window.localStorage.getItem("user"));
       $scope.ports = [];
       for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
@@ -32,27 +32,16 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
         Ports.ports = data.data;
       });
   }
-<<<<<<< HEAD
-    
-  $scope.addPort = function(name) {
-        var dataObj = {
-                name : name,
-		};
-    Ports.post(name).success(function(data){
-        alert(data.message);
-    }).error(function(data){
-        alert(data.message);
-    });
-  }
-  
-=======
+  $scope.$watch(function(){
+    $scope.ports = Ports.ports;
+    $scope.list = Ports.list;
+  })
   var z = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + 'GOOG' + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
   $.getJSON(z,function(data){
     $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
     console.log($scope.stock);
   });
 
->>>>>>> origin/master
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
@@ -91,7 +80,7 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 }]);
 
 
-demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
+demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', function($scope, $http, $window, Users, Ports, Login){
     console.log(window.localStorage);
     if (window.localStorage.length>0){
       $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
@@ -119,6 +108,19 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
           Users.email = done.data.email;
           //console.log(window.localStorage);
           $scope.usernameDisplay = done.data.email;
+
+          $scope.ports = [];
+          for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+              console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+              Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+                  console.log("dt: "+JSON.stringify(data.data));
+                $scope.ports.push((data.data));
+                  console.log("sp: "+$scope.ports);
+              });
+          }if ($scope.ports.length > 0){
+          $scope.list = Ports.list = $scope.ports[0].stock_list[0];
+          }
+          Ports.ports = $scope.ports;
         }
     }).error(function(done){
         alert("bad"+done.message);
