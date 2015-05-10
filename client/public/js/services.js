@@ -87,6 +87,15 @@ angular.module('demoServices', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
+            factory.addStockByCode = function(Assignment) {
+                return $http({
+                    method: 'PUT',
+                    //url: baseUrl+'/api/ports/'+JSON.parse(window.localStorage.getItem("user")).portfolios[0],
+                    url: baseUrl+'/api/ports/'+JSON.parse(window.localStorage.getItem("port"))._id,
+                    data: Assignment,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
             factory.ports;
             factory.list;
             factory.curStock;

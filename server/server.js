@@ -408,14 +408,14 @@ router.put('/ports/:id',function(req,res,next){
         res.json(msg);
         return;
     }
-    if(!put.name){
+    /*if(!put.name){
         res.status(500).json({message: 'Name field is required',"data":[]});
         return;
     }
     if(!put.deadline){
         res.status(500).json({message: 'Deadline is required',"data":[]});
         return;
-    }
+    }*/
     var msg = '{"message": "port Updated","data":'+JSON.stringify(put)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 200;
