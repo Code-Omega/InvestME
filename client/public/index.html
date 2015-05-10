@@ -45,13 +45,13 @@
     <div id="portfolio">
       <ul>
         <li feed ng-repeat="x in ports" ng-click=change_port(x,$index) ng-class="{'selectedd':$index==selectedIndexPort,'unselected':$index!=selectedIndexPort}"><p>{{x.name}}</p></li>
-        <li class="unselected"><h2>Add</h2></li>
+        <li class="unselected"><h3>Add</h3></li>
       </ul>
     </div>
     <div id="stockbar">
       <ul>
         <li feed ng-repeat="x in stocks" ng-click=change_stock(x,$index) ng-class="{'sselected':$index==selectedIndexStock,'unselected':$index!=selectedIndexStock}"><p>{{x}}</p></li>
-        <li class="unselected"><h2>Add</h2></li>
+        <li class="unselected"><h3>Add</h3></li>
       </ul>
     </div>
   <div ng-view></div>
