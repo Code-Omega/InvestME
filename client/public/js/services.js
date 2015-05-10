@@ -19,9 +19,22 @@ angular.module('demoServices', [])
             }
         }
     })
+    .factory('Login', function($http, $window) {
+        var factory = {};
+        var baseUrl = "http://localhost:4000";
+            factory.post = function(email,password) {
+                return $http({
+                    method: 'POST',
+                    url: 'http://localhost:4000/api/login',
+                    data: "email=" + email + "&password="+password,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+        return factory;
+    })
     .factory('Users', function($http, $window) {
         var factory = {};
-        var baseUrl = $window.sessionStorage.baseurl;
+        var baseUrl = "http://localhost:4000";
             factory.get = function() {
                 var baseUrl = $window.sessionStorage.baseurl;
                 return $http.get(baseUrl+'/api/users');
@@ -29,11 +42,11 @@ angular.module('demoServices', [])
             factory.delete = function(id) {
                 return $http.delete(baseUrl+'/api/users'+'/'+id);
             }
-            factory.post = function(name,email) {
+            factory.post = function(email,password) {
                 return $http({
                     method: 'POST',
                     url: baseUrl+'/api/users',
-                    data: "name=" + name + "&email="+email,
+                    data: "email=" + email + "&password="+password,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }

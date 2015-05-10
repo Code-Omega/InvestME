@@ -63,6 +63,15 @@ body{
   top: 150px;
   text-align: center;
 }
+.content{
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  top: 150px;
+  text-align: center;
+}
 #test{
   position: absolute;
   background-color: #2c343b;

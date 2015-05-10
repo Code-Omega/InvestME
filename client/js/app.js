@@ -14,6 +14,10 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/portfolio.html',
     controller: 'DataController'
   }).
+  when('/register', {
+    templateUrl: 'partials/login.html',
+    controller: 'RegisterController'
+  }).
   otherwise({
     redirectTo: '/'
   });

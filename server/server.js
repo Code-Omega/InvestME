@@ -60,6 +60,7 @@ homeRoute.get(function(req, res) {
   app.use(session({secret:'lets invest',resave: true, saveUninitialized: false}));
   app.use(passport.initialize());
   app.use(passport.session());
+  router.use(passport.initialize());
   //app.use(flash());
 
 
@@ -105,7 +106,7 @@ passport.deserializeUser(function(id, done) {
                                    failureFlash: true
                                  })
 );*/
-app.post('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     // Redirect if it fails
@@ -160,6 +161,12 @@ router.get('/ports',function(req, res,next) {
 //----------------------------
 
 router.post('/users',function(req,res,next){
+    if(req.body.password){
+          var bcrypt = require('bcrypt');
+          var hash = bcrypt.hashSync(req.body.password, 10);
+          console.log("hash: "+hash);
+          req.body.password = hash;
+    }
   User.create(req.body,function(err,post){
     if(err) {
         if(err.code == 11000) {
@@ -172,14 +179,14 @@ router.post('/users',function(req,res,next){
         res.json(msg);
         return next(err);
     }
-    if(!post.name){
+    /*if(!post.name){
         res.status(500).json({message: 'Name field is required',"data":[]});
         return;
     }
     if(!post.email){
         res.status(500).json({message: 'Email field is required',"data":[]});
         return;
-    }
+    }*/
     var msg = '{"message": "User Added","data":'+JSON.stringify(post)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 201;

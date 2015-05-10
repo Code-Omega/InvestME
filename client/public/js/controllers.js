@@ -14,10 +14,11 @@ demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , func
 demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {}]);
 
 
-demoControllers.controller("RegisterController",['$scope', '$http', '$window', function($scope, $http, $window){
+demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
     if ($window.sessionStorage.user)$scope.usernameDisplay = $window.sessionStorage.user;
     else $scope.usernameDisplay = 'New Guest';
     $scope.login = function(email,password) {
+        alert("attempting");
         //console.log("username=" + name + "&email="+email);
      /* var dataObj = {
 				username : name,
@@ -33,25 +34,49 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', f
 				email : email,
                 password : password
         };
-        $http.post('/login', outPacket).success(function(done){
-        alert(done.message);
+        Login.post(email, password).success(function(done){
+        alert("good"+done.message);
+        console.log(done.message);
+        $window.sessionStorage.user = $scope.usernameDisplay = done.data.email;
+    }).error(function(done){
+        alert("bad"+done.message);
+    });
+        
+        /*$http.post('/login', outPacket).success(function(done){
+        alert("good"+done.message);
         $window.sessionStorage.user = $scope.usernameDisplay = done.data;
     }).error(function(done){
-        alert(done.message);
+        alert("bad"+done.message);
+    });*/
+  /*            var dataObj = {
+				name : name,
+				email : email,
+		};	
+    Users.post(name,email).success(function(data){
+        alert(data.message);
+        Users.get().success(function(data){
+        $scope.users = data.data;
     });
+    }).error(function(data){
+        alert(data.message);
+    });*/
   }
     
     $scope.add = function(email,password) {
-        var outPacket={
+        var dataObj = {
 				email : email,
-                password : password
-        };
-        $http.post('/users', outPacket).success(function(data){
+				password : password,
+		};	
+    Users.post(email,password).success(function(data){
         alert(data.message);
+        Users.get().success(function(data){
+        $scope.users = data.data;
+    });
     }).error(function(data){
         alert(data.message);
     });
   }
+    
 }]);
 
 
