@@ -22,6 +22,10 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/login.html',
     controller: 'RegisterController'
   }).
+  when('/search', {
+    templateUrl: 'partials/search.html',
+    controller: 'SearchController'
+  }).
   otherwise({
     redirectTo: '/'
   });

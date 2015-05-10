@@ -1,0 +1,8 @@
+<div class="content">
+  <input type="text" ng-model="query">
+  <div ng-hide="!query" ng-repeat="x in list | filter:query">
+    <h1>{{x}}</h1>
+    <h3 ng-click="addStock(x)">Add</h3>
+  </div>
+</h1>
+</div>

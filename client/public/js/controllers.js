@@ -9,24 +9,63 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
     $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
   })
 }]);
-
+demoControllers.controller('SearchController', ['$scope', 'Ports'  , function($scope, Ports) {
+  console.log("hi");
+  $.get("../data/sp500.csv",function(data){
+    var lines = data.split(/\r\n|\n/);
+    var list = [];
+    for(var i=1;i<lines.length-1;i++){
+      var d = lines[i].split(',');
+      list.push(d[0]);
+    }
+    $scope.list = list;
+    console.log($scope.list);
+  })
+}]);
 demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($scope, Ports) {
-      console.log(Ports.hist_price);
-      $('#chart').highcharts('StockChart',{
-        rangeSelector : {
-            selected : 1
-        },
-        title : {
-            text : 'AAPL Stock Price'
-        },
-        series : [{
-            name : 'AAPL',
-            data : Ports.hist_price,
-            tooltip: {
-            valueDecimals: 2
-            }
-        }]
-      })
+  $scope.$watch(function(){
+    if($scope.cake != Ports.hist_price){
+
+        console.log(Ports.hist_price);
+        $('#chart').highcharts('StockChart',{
+          rangeSelector : {
+              selected : 1
+          },
+          title : {
+              text : Ports.s+' Stock Price'
+          },
+          series : [{
+              name : Ports.s,
+              data : Ports.hist_price,
+              tooltip: {
+              valueDecimals: 2
+              }
+          }]
+        });
+        $scope.cake = Ports.hist_price;
+      }
+  });
+  /*// $scope.$watch(function(){
+    $scope.cake = Ports.hist_price;
+  });
+  $scope.$watch('cake',function(){
+        console.log(Ports.hist_price);
+        $('#chart').highcharts('StockChart',{
+          rangeSelector : {
+              selected : 1
+          },
+          title : {
+              text : Ports.s+' Stock Price'
+          },
+          series : [{
+              name : Ports.s,
+              data : Ports.hist_price,
+              tooltip: {
+              valueDecimals: 2
+              }
+          }]
+        });
+      });*/
 
  /*$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
         // Create the chart
@@ -79,7 +118,7 @@ if (window.localStorage.length>0){
         Ports.ports = data.data;
       });
   }
-    
+
   $scope.addPort = function(name) {
         var dataObj = {
                 name : name,
@@ -121,7 +160,7 @@ if (window.localStorage.length>0){
         alert(data.message);
     });
   }
-  
+
   $scope.addStock = function(code) {
         var dataObj = {
                 code : code,
@@ -183,6 +222,7 @@ if (window.localStorage.length>0){
     }
     Ports.hist_dates = dates;
     Ports.hist_price = price;
+    Ports.s = "GOOG"
     //Ports.hist_vol = vol;
     //console.log(data);
     //console.log(dates);
@@ -205,19 +245,29 @@ if (window.localStorage.length>0){
     $scope.selectedIndexStock = $index;
     Ports.list = x;
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + x + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
-    var url2 = 'http://www.reuters.com/finance/stocks/companyProfile?symbol='+x;
+    var url2 = 'http://www.google.com/finance/historical?q='+x+'&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv';
     $.getJSON(url,function(data){
       $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
       //console.log($scope.stock);
     });
-    /*$.ajax({
-        type: "POST",
-        dataType: 'jsonp',
-        url: url2,
-        crossDomain : true,
-    }).done(function(data){
-      console.log(data);
-    })*/
+    $.get(url2,function(data){
+      $scope.$apply(function(){
+      var lines = data.split(/\r\n|\n/);
+      var dates = [];
+      var price = [];
+      for(var i=lines.length-2;i>1;i--){
+        var d = lines[i].split(',');
+        var stamp = Date.parse(d[0]);
+        var arr = [stamp,parseFloat(d[1])];
+        //console.log(d[0]);
+        dates.push(stamp);
+        price.push(arr);
+      }
+      Ports.hist_dates = dates;
+      Ports.hist_price = price;
+      Ports.s = x;
+    });
+    })
   }
   //console.log(typeof(window.localStorage.length));
   if (window.localStorage.length>0){
