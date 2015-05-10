@@ -60,6 +60,10 @@ angular.module('demoServices', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
+            factory.getByID = function(id){
+                //console.log(update);
+            return $http.get(baseUrl+'/api/users/'+id);
+            }
         return factory;
     })
     .factory('Ports', function($http, $window) {

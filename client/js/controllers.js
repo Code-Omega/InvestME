@@ -48,6 +48,24 @@ if (window.localStorage.length>0){
         }
         Users.updatePort(assignment).success(function(data){
             alert(data.message);
+            Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
+                alert(data.message);
+                window.localStorage.setItem("user",JSON.stringify(data.data));
+                      $scope.ports = [];
+                      for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+                          console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+                          Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+                              console.log("dt: "+JSON.stringify(data.data));
+                            $scope.ports.push((data.data));
+                              console.log("sp: "+$scope.ports);
+                          });
+                      }if ($scope.ports.length > 0){
+                      $scope.list = Ports.list = $scope.ports[0].stock_list[0];
+                      }
+                      Ports.ports = $scope.ports;
+            }).error(function(data){
+                alert(data.message);
+            });
         }).error(function(data){
             alert(data.message);
         });
