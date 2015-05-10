@@ -10,8 +10,9 @@ $(document).ready(function () {
       e.stopPropagation();
   });
   $("body").click(function(e){
-    //console.log(e.target.nodeName);
-    $("#portfolio").fadeOut("slow");
+    console.log(e.target.nodeName);
+    if(e.target.nodeName!='INPUT')
+      $("#portfolio").fadeOut("slow");
     if(e.target.nodeName!='P')
       $("#stockbar").fadeOut("slow");
   });

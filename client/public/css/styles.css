@@ -428,3 +428,7 @@ h2 {
 /* line 318, ../../sass/styles.scss */
 .green {
   color: #36ad32; }
+
+/* line 321, ../../sass/styles.scss */
+.dropdown_add {
+  height: 80px; }
