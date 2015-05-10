@@ -52,6 +52,18 @@ angular.module('demoServices', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
+            factory.updatePort = function(Assignment) {
+                return $http({
+                    method: 'PUT',
+                    url: baseUrl+'/api/users/'+JSON.parse(window.localStorage.getItem("user"))._id,
+                    data: Assignment,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+            factory.getByID = function(id){
+                //console.log(update);
+            return $http.get(baseUrl+'/api/users/'+id);
+            }
         return factory;
     })
     .factory('Ports', function($http, $window) {
@@ -71,7 +83,16 @@ angular.module('demoServices', [])
                 return $http({
                     method: 'POST',
                     url: baseUrl+'/api/ports',
-                    data: "name=" + name,
+                    data: "name=" + name + "&assignedUser=" + JSON.parse(window.localStorage.getItem("user"))._id,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+            factory.addStockByCode = function(Assignment) {
+                return $http({
+                    method: 'PUT',
+                    //url: baseUrl+'/api/ports/'+JSON.parse(window.localStorage.getItem("user")).portfolios[0],
+                    url: baseUrl+'/api/ports/'+JSON.parse(window.localStorage.getItem("port"))._id,
+                    data: Assignment,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }

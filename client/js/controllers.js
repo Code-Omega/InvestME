@@ -71,6 +71,7 @@ if (window.localStorage.length>0){
       $scope.list = Ports.list = $scope.ports[0].stock_list[0];
       }
       Ports.ports = $scope.ports;
+      window.localStorage.setItem("port",JSON.stringify($scope.ports[0]));
   } else {
       Ports.get().success(function(data){
         $scope.ports = data.data;
@@ -78,6 +79,86 @@ if (window.localStorage.length>0){
         Ports.ports = data.data;
       });
   }
+    
+  $scope.addPort = function(name) {
+        var dataObj = {
+                name : name,
+		};
+    Ports.post(name).success(function(data){
+        console.log(data.data);
+        var portArray = JSON.parse(window.localStorage.getItem("user")).portfolios;
+        portArray.splice(0, 0, data.data._id);
+        var assignment = '';
+        for (var i = 0; i < portArray.length; i++) {
+            assignment = assignment+'portfolios[]='+portArray[i];
+            if (i != portArray.length-1) assignment = assignment+'&'
+        }
+        Users.updatePort(assignment).success(function(data){
+            alert(data.message);
+            Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
+                alert(data.message);
+                window.localStorage.setItem("user",JSON.stringify(data.data));
+                      $scope.ports = [];
+                      for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+                          console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+                          Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+                              console.log("dt: "+JSON.stringify(data.data));
+                            $scope.ports.push((data.data));
+                              console.log("sp: "+$scope.ports);
+                          });
+                      }if ($scope.ports.length > 0){
+                      $scope.list = Ports.list = $scope.ports[0].stock_list[0];
+                      }
+                      Ports.ports = $scope.ports;
+            }).error(function(data){
+                alert(data.message);
+            });
+        }).error(function(data){
+            alert(data.message);
+        });
+        alert(data.message);
+    }).error(function(data){
+        alert(data.message);
+    });
+  }
+  
+  $scope.addStock = function(code) {
+        var dataObj = {
+                code : code,
+		};
+    var stockArray = "";
+    console.log("list is this "+$scope.stocklist);
+    if ($scope.stocklist!="")stockArray=$scope.stocklist+","+code;
+    else stockArray = code;
+    var assignment = 'stock_list[]='+stockArray;
+    Ports.addStockByCode(assignment).success(function(data){
+         console.log("=====================1");
+        console.log(data.data);
+        window.localStorage.setItem("port",JSON.stringify(data.data));
+        $scope.list = Ports.list = data.data.stock_list[0];
+        $scope.change_port(data.data,0);
+                    Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
+                alert(data.message);
+                window.localStorage.setItem("user",JSON.stringify(data.data));
+                      $scope.ports = [];
+                      for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+                          console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+                          Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+                              console.log("dt: "+JSON.stringify(data.data));
+                            $scope.ports.push((data.data));
+                              console.log("sp: "+$scope.ports);
+                          });
+                      };
+                      Ports.ports = $scope.ports;
+            }).error(function(data){
+                alert(data.message);
+            });
+        console.log("=====================2");
+    }).error(function(data){
+        alert(data.message);
+    });
+  }
+
   $scope.$watch(function(){
     $scope.ports = Ports.ports;
     $scope.list = Ports.list;
@@ -111,8 +192,12 @@ if (window.localStorage.length>0){
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
+    window.localStorage.setItem("port",JSON.stringify(x));
+    $scope.stocklist = x.stock_list;
     $scope.list = Ports.list = x.stock_list[0];
+      if (Ports.list) {
     $scope.stocks = Ports.list.split(',');
+      } else $scope.stocks = [];
     $scope.selectedIndexPort = $index;
     $("#stockbtn").click();
   }
