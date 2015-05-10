@@ -6,10 +6,11 @@ $(document).ready(function () {
   });
   $("#stockbtn").click(function(e){
       $("#stockbar").fadeToggle("slow");
-      console.log("gjkahgkashgsjkagjksg");
+      //console.log("gjkahgkashgsjkagjksg");
       e.stopPropagation();
   });
   $("body").click(function(e){
+    //console.log(e.target.nodeName);
     $("#portfolio").fadeOut("slow");
     if(e.target.nodeName!='P')
       $("#stockbar").fadeOut("slow");

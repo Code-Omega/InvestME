@@ -3,10 +3,9 @@ var demoControllers = angular.module('demoControllers', []);
 var directives = angular.module('directives', []);
 
 demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($scope, Ports) {
-  Ports.list = "^GSPC,^DJI,^IXIC"
   $scope.$watch(function(){
+    $scope.things = Ports.list;
     var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
-    console.log(str);
     $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
   })
 }]);
@@ -14,7 +13,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
 demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
   Ports.get().success(function(data){
     $scope.ports = data.data;
-    $scope.list = data.data[0].stock_list[0];
+    $scope.list = Ports.list = data.data[0].stock_list[0];
     Ports.ports = data.data;
   });
   $scope.selectedIndexPort = 0;
@@ -27,10 +26,18 @@ demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , func
   }
   $scope.change_stock = function(x,$index){
     $scope.selectedIndexStock = $index;
+    Ports.list = x;
+    var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + x + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+    $.getJSON(url,function(data){
+      $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
+      console.log($scope.stock);
+    });
   }
 }]);
 
-demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {}]);
+demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
+
+}]);
 
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
