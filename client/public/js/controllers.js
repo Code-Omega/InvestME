@@ -32,6 +32,7 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
         Ports.ports = data.data;
       });
   }
+<<<<<<< HEAD
     
   $scope.addPort = function(name) {
         var dataObj = {
@@ -44,6 +45,14 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
     });
   }
   
+=======
+  var z = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + 'GOOG' + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+  $.getJSON(z,function(data){
+    $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
+    console.log($scope.stock);
+  });
+
+>>>>>>> origin/master
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
@@ -58,10 +67,10 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + x + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
     $.getJSON(url,function(data){
       $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
-      console.log($scope.stock);
+      //console.log($scope.stock);
     });
   }
-  console.log(typeof(window.localStorage.length));
+  //console.log(typeof(window.localStorage.length));
   if (window.localStorage.length>0){
     $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
     Users.user = $scope.usernameDisplay;

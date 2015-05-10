@@ -4,6 +4,13 @@
   <h1>{{cake}}</h1>
   <h1 ng-repeat="x in ports">{{x.stock_list}}</h1>
 </div>-->
-<div class="content">
-  <h1>{{stock.Name}}</h1>
+<div class="content2">
+  <div id="stockdata">
+  <h2>{{stock.Name}} ({{stock.Symbol}})</h2>
+  <h3 ng-class="{'green':stock.Change>0,'red':stock.Change<0}">{{stock.LastTradePriceOnly}} ({{stock.Change}})</h3>
+  <h4>Previous Close - {{stock.PreviousClose}}</h4>
+  <h4>Open - {{stock.Open}}</h4>
+  <h4>Bid - {{stock.Bid}}</h4>
+  <h4>Ask - {{stock.Ask}}</h4>
+</div>
 </div>
