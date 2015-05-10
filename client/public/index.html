@@ -42,8 +42,8 @@
     </div>
     <div id="portfolio">
       <ul>
-        <li feed ng-repeat="x in ports"><p ng-click=change_port(x)>{{x.name}}</p></li>
-        <li><h2>Add</h2></li>
+        <li feed ng-repeat="x in ports" ng-click=change_port(x,$index) ng-class="{'selectedd':$index==selectedIndex,'unselected':$index!=selectedIndex}"><p>{{x.name}}</p></li>
+        <li class="unselected"><h2>Add</h2></li>
       </ul>
     </div>
   <div ng-view></div>
