@@ -32,6 +32,18 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
         Ports.ports = data.data;
       });
   }
+    
+  $scope.addPort = function(name) {
+        var dataObj = {
+                name : name,
+		};
+    Ports.post(name).success(function(data){
+        alert(data.message);
+    }).error(function(data){
+        alert(data.message);
+    });
+  }
+  
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){

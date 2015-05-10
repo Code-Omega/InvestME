@@ -67,11 +67,11 @@ angular.module('demoServices', [])
             factory.delete = function(id) {
                 return $http.delete(baseUrl+'/api/ports'+'/'+id);
             }
-            factory.post = function(name,email) {
+            factory.post = function(name) {
                 return $http({
                     method: 'POST',
                     url: baseUrl+'/api/ports',
-                    data: "name=" + name + "&email="+email,
+                    data: "name=" + name,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
