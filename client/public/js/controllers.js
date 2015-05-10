@@ -30,7 +30,7 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
-    if ($window.sessionStorage.user)$scope.usernameDisplay = $window.sessionStorage.user;
+    if ($window.sessionStorage.user)$scope.usernameDisplay = $window.sessionStorage.user.email;
     else $scope.usernameDisplay = 'New Guest';
     $scope.login = function(email,password) {
         alert("attempting");
@@ -51,8 +51,9 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         };
         Login.post(email, password).success(function(done){
         alert("good"+done.message);
-        console.log(done.message);
-        $window.sessionStorage.user = $scope.usernameDisplay = done.data;
+        console.log(done.data);
+        $window.sessionStorage.user = done.data;
+        $scope.usernameDisplay = done.data.email;
     }).error(function(done){
         alert("bad"+done.message);
     });

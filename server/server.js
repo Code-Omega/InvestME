@@ -114,7 +114,7 @@ router.post('/login', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       // Redirect if it succeeds
-      return res.status(200).json({message: 'Logged in',"data": user.email});
+      return res.status(200).json({message: 'Logged in',"data": user});
     });
   })(req, res, next);
 });
