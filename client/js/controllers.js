@@ -49,11 +49,11 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         Login.post(email, password).success(function(done){
         alert("good"+done.message);
         console.log(done.message);
-        $window.sessionStorage.user = $scope.usernameDisplay = done.data.email;
+        $window.sessionStorage.user = $scope.usernameDisplay = done.data;
     }).error(function(done){
         alert("bad"+done.message);
     });
-        
+
         /*$http.post('/login', outPacket).success(function(done){
         alert("good"+done.message);
         $window.sessionStorage.user = $scope.usernameDisplay = done.data;
@@ -63,7 +63,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
   /*            var dataObj = {
 				name : name,
 				email : email,
-		};	
+		};
     Users.post(name,email).success(function(data){
         alert(data.message);
         Users.get().success(function(data){
@@ -78,7 +78,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         var dataObj = {
 				email : email,
 				password : password,
-		};	
+		};
     Users.post(email,password).success(function(data){
         alert(data.message);
         Users.get().success(function(data){
@@ -88,7 +88,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         alert(data.message);
     });
   }
-    
+
 }]);
 
 

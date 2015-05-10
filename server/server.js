@@ -89,7 +89,7 @@ passport.use(new LocalStrategy({
     });
   }
 ));
-    
+
     passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -99,7 +99,7 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-    
+
 /*app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/',
@@ -114,7 +114,7 @@ router.post('/login', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       // Redirect if it succeeds
-      return res.status(200).json({message: 'Logged in',"data": user.name});
+      return res.status(200).json({message: 'Logged in',"data": user.email});
     });
   })(req, res, next);
 });
