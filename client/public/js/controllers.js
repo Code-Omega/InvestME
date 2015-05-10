@@ -82,12 +82,13 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
     });*/
   }
 
-    $scope.add = function(email,password) {
+    $scope.add = function(username, email,password) {
         var dataObj = {
+                name : username,
 				email : email,
 				password : password,
 		};
-    Users.post(email,password).success(function(data){
+    Users.post(username,email,password).success(function(data){
         alert(data.message);
         Users.get().success(function(data){
         $scope.users = data.data;

@@ -42,11 +42,11 @@ angular.module('demoServices', [])
             factory.delete = function(id) {
                 return $http.delete(baseUrl+'/api/users'+'/'+id);
             }
-            factory.post = function(email,password) {
+            factory.post = function(username,email,password) {
                 return $http({
                     method: 'POST',
                     url: baseUrl+'/api/users',
-                    data: "email=" + email + "&password="+password,
+                    data: "name=" + username+ "&email=" + email + "&password=" + password,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
