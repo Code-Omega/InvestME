@@ -10,8 +10,14 @@ $(document).ready(function () {
       e.stopPropagation();
   });
   $("body").click(function(e){
+<<<<<<< Updated upstream
     $("#portfolio").fadeOut("slow");
     if(e.target.nodeName!='P'){
+=======
+      console.log($(e.target));
+      if(($(e.target.nodeName ).is("#portfolio"))){console.log("hello");}
+      $("#portfolio").fadeOut("slow");
+>>>>>>> Stashed changes
       $("#stockbar").fadeOut("slow");
     }
   });
