@@ -37,18 +37,6 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
     if ($window.sessionStorage.user)$scope.usernameDisplay = $window.sessionStorage.user.email;
     else $scope.usernameDisplay = 'New Guest';
     $scope.login = function(email,password) {
-        alert("attempting");
-        //console.log("username=" + name + "&email="+email);
-     /* var dataObj = {
-				username : name,
-				email : email
-		};	*/
-    /*$http({
-                    method: 'POST',
-                    url: '/users',
-                    data: "username=" + name + "&email="+email,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                })*/
         var outPacket={
 				email : email,
                 password : password
@@ -61,25 +49,6 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
     }).error(function(done){
         alert("bad"+done.message);
     });
-
-        /*$http.post('/login', outPacket).success(function(done){
-        alert("good"+done.message);
-        $window.sessionStorage.user = $scope.usernameDisplay = done.data;
-    }).error(function(done){
-        alert("bad"+done.message);
-    });*/
-  /*            var dataObj = {
-				name : name,
-				email : email,
-		};
-    Users.post(name,email).success(function(data){
-        alert(data.message);
-        Users.get().success(function(data){
-        $scope.users = data.data;
-    });
-    }).error(function(data){
-        alert(data.message);
-    });*/
   }
 
     $scope.add = function(username, email,password) {

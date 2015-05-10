@@ -82,7 +82,6 @@ passport.use(new LocalStrategy({
         return done(null, false, { message: 'Incorrect password.' });
       }
         console.log("good");
-        //$window.sessionStorage.user = user;
         console.log(user);
         console.log(done);
       return done(null, user);
@@ -192,14 +191,6 @@ router.post('/users',function(req,res,next){
         res.json(msg);
         return next(err);
     }
-    /*if(!post.name){
-        res.status(500).json({message: 'Name field is required',"data":[]});
-        return;
-    }
-    if(!post.email){
-        res.status(500).json({message: 'Email field is required',"data":[]});
-        return;
-    }*/
     var msg = '{"message": "User Added","data":'+JSON.stringify(post)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 201;
