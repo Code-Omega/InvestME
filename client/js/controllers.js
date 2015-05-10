@@ -33,6 +33,17 @@ demoControllers.controller('MainController', ['$scope', '$http','$window', 'Port
       console.log($scope.stock);
     });
   }
+  console.log(typeof(window.localStorage.length));
+  if (window.localStorage.length>0){
+    $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
+    Users.user = $scope.usernameDisplay;
+    Users.email = JSON.parse(window.localStorage.getItem("user")).email;
+  }
+  else{
+    $scope.usernameDisplay = 'Login';
+    Users.user = 'Login';
+    Users.email = 'a@b';
+  }
   $scope.$watch(function(){
     $scope.usernameDisplay = Users.user;
   })
@@ -45,7 +56,7 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Login', function($scope, $http, $window, Users, Login){
     console.log(window.localStorage);
-    if (window.localStorage.user!="undefined"){
+    if (window.localStorage.length>0){
       $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
       Users.user = $scope.usernameDisplay;
       Users.email = JSON.parse(window.localStorage.getItem("user")).email;

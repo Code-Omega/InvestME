@@ -302,35 +302,45 @@ h2 {
   z-index: 99;
   top: 25px;
   left: 25px;
-  color: #ffffff;
+  color: #a8b4be;
   font-size: 30px;
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  display: inline; }
 
-/* line 216, ../../sass/styles.scss */
+/* line 217, ../../sass/styles.scss */
+#portbtn p {
+  font-size: 20px; }
+
+/* line 220, ../../sass/styles.scss */
 #stockbtn {
   position: fixed;
   z-index: 99;
   top: 25px;
   right: 25px;
-  color: #ffffff;
+  color: #a8b4be;
   font-size: 30px;
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  display: inline; }
 
-/* line 226, ../../sass/styles.scss */
+/* line 231, ../../sass/styles.scss */
+#stockbtn p {
+  font-size: 20px; }
+
+/* line 234, ../../sass/styles.scss */
 .selectedd {
   background: #ffffff;
   color: #2c343b;
   border-right: 20px solid #d44457; }
 
-/* line 231, ../../sass/styles.scss */
+/* line 239, ../../sass/styles.scss */
 .sselected {
   background: #ffffff;
   color: #2c343b;
   border-left: 20px solid #d44457; }
 
-/* line 236, ../../sass/styles.scss */
+/* line 244, ../../sass/styles.scss */
 .unselected {
   background: #020e0e;
   color: #a8b4be; }

@@ -208,20 +208,28 @@ h2{
   z-index:99;
   top:25px;
   left:25px;
-  color:#ffffff;
+  color:#a8b4be;
   font-size:30px;
   width:50px;
   height:50px;
+  display:inline;
+}
+#portbtn p{
+  font-size:20px;
 }
 #stockbtn{
   position:fixed;
   z-index:99;
   top:25px;
   right:25px;
-  color:#ffffff;
+  color:#a8b4be;
   font-size:30px;
   width:50px;
   height:50px;
+  display:inline;
+}
+#stockbtn p{
+  font-size:20px;
 }
 .selectedd{
   background: #ffffff;
