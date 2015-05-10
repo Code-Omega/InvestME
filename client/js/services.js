@@ -71,6 +71,7 @@ angular.module('demoServices', [])
                 });
             }
             factory.ports;
+            factory.list;
         return factory;
     })
     .factory('User',function($http,$window){

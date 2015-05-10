@@ -42,8 +42,7 @@
     </div>
     <div id="portfolio">
       <ul>
-        <li ng-repeat="x in ports"><p>{{x.name}}</p></li>
-        <li><p>DUDEEEE</p></li>
+        <li feed ng-repeat="x in ports"><p ng-click=change_port(x)>{{x.name}}</p></li>
         <li><h2>Add</h2></li>
       </ul>
     </div>

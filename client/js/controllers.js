@@ -2,13 +2,25 @@ var demoControllers = angular.module('demoControllers', []);
 
 var directives = angular.module('directives', []);
 
-demoControllers.controller('FeedController', ['$scope', 'CommonData'  , function($scope, CommonData) {}]);
+demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($scope, Ports) {
+  Ports.list = "^GSPC,^DJI,^IXIC"
+  $scope.$watch(function(){
+    var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
+    console.log(str);
+    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
+  })
+}]);
 
 demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
   Ports.get().success(function(data){
     $scope.ports = data.data;
+    $scope.list = data.data[0].stock_list[0];
     Ports.ports = data.data;
   });
+  $scope.change_port = function(x){
+    $scope.list = Ports.list = x.stock_list[0];
+    console.log(Ports.list);
+  }
 }]);
 
 demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {}]);
@@ -61,7 +73,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         alert(data.message);
     });*/
   }
-    
+
     $scope.add = function(email,password) {
         var dataObj = {
 				email : email,
@@ -81,14 +93,16 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
 
 
 
-
-directives.directive('feed',function(){
+/*
+directives.directive('feed',['Ports',function(Ports) {
   return{
-    link: function(scope,element){
-      $('#test').rssfeed('http://finance.yahoo.com/rss/headline?s=^GSPC,^dji,^ixic', {limit: 25, header:false, content:false, media:false, date:false});
+    link: function(Ports){
+      var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
+      console.log(str);
+      $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
     }
   }
-})
+}]);*/
 /*
 directives.directive('data',function(){
   return{

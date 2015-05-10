@@ -192,7 +192,7 @@ body {
 
 /* line 114, ../../sass/styles.scss */
 #portfolio {
-  position: absolute;
+  position: fixed;
   background-color: #ffffff;
   border: 2px solid #d44457;
   border-radius: 5px;
