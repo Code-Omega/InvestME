@@ -377,12 +377,23 @@ h2 {
   color: rgb 2, 14, 14;
   margin: 0 auto;
   width: 850px;
-  height: 100%;
   z-index: 1;
   padding-top: 100px;
-  padding-left: 50px; }
+  padding-left: 50px;
+  padding-bottom: 20px; }
 
 /* line 281, ../../sass/styles.scss */
+#chartDiv {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 1000px;
+  height: 600px;
+  margin-top: 200px; }
+
+/* line 291, ../../sass/styles.scss */
 .content2 {
   position: absolute;
   width: 100%;
@@ -392,39 +403,47 @@ h2 {
   top: 0; }
 
 @media only screen and (max-width: 768px) {
-  /* line 290, ../../sass/styles.scss */
+  /* line 300, ../../sass/styles.scss */
   #stockdata {
     width: 100%; } }
-/* line 294, ../../sass/styles.scss */
+/* line 304, ../../sass/styles.scss */
 #stockdata h2, #stockdata p, #stockdata h3, #stockdata h4 {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   line-height: 1.2;
   margin: 0 auto 14px; }
 
-/* line 299, ../../sass/styles.scss */
+/* line 309, ../../sass/styles.scss */
 #stockdata h2 {
   font-size: 2.8rem;
   color: #130f1b; }
 
-/* line 303, ../../sass/styles.scss */
+/* line 313, ../../sass/styles.scss */
 #stockdata h3 {
   font-size: 1.4rem; }
 
-/* line 306, ../../sass/styles.scss */
+/* line 316, ../../sass/styles.scss */
 #stockdata h4 {
   font-size: 1.2rem;
   color: #130f1b; }
 
-/* line 310, ../../sass/styles.scss */
+/* line 320, ../../sass/styles.scss */
 #stockdata p {
   color: #130f1b;
   font-size: 1.0rem;
   line-height: 1.0; }
 
-/* line 315, ../../sass/styles.scss */
+/* line 325, ../../sass/styles.scss */
 .red {
   color: #af3232; }
 
-/* line 318, ../../sass/styles.scss */
+/* line 328, ../../sass/styles.scss */
 .green {
   color: #36ad32; }
+
+/* line 331, ../../sass/styles.scss */
+.content3 {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  left: 0;
+  top: 150px; }

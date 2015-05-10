@@ -273,10 +273,20 @@ h2{
   color: rgb (2,14,14);
   margin: 0 auto;
   width: 850px;
-  height:100%;
   z-index: 1;
   padding-top:100px;
   padding-left:50px;
+  padding-bottom: 20px;
+}
+#chartDiv {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 1000px;
+    height: 600px;
+    margin-top: 200px;
 }
 .content2{
   position: absolute;
@@ -317,4 +327,11 @@ h2{
 }
 .green{
   color: #36ad32;
+}
+.content3{
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  left: 0;
+  top: 150px;
 }

@@ -15,5 +15,4 @@ $(document).ready(function () {
     if(e.target.nodeName!='P')
       $("#stockbar").fadeOut("slow");
   });
-
 });

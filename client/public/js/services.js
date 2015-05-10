@@ -78,6 +78,11 @@ angular.module('demoServices', [])
             factory.ports;
             factory.list;
             factory.curStock;
+            factory.hist_dates;
+            factory.hist_price;
+            factory.hist_vol;
+            factory.hi_price;
+            factory.hi_vol;
         return factory;
     })
     .factory('User',function($http,$window){

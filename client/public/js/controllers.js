@@ -10,6 +10,52 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
   })
 }]);
 
+demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($scope, Ports) {
+      console.log(Ports.hist_price);
+      $('#chart').highcharts('StockChart',{
+        rangeSelector : {
+            selected : 1
+        },
+        title : {
+            text : 'AAPL Stock Price'
+        },
+        series : [{
+            name : 'AAPL',
+            data : Ports.hist_price,
+            tooltip: {
+            valueDecimals: 2
+            }
+        }]
+      })
+
+ /*$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        console.log(data);
+        Highcharts.setOptions({
+          global:{
+            useUTC:false
+          }
+        });
+        $('#chart').highcharts('StockChart', {
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : 'AAPL Stock Price'
+            },
+
+            series : [{
+                name : 'AAPL',
+                data : data,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+    });*/
+}]);
+
 demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
 if (window.localStorage.length>0){
       console.log("hello "+window.localStorage.getItem("user"));
@@ -17,9 +63,9 @@ if (window.localStorage.length>0){
       for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
           console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
           Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
-              console.log("dt: "+JSON.stringify(data.data));
+              //console.log("dt: "+JSON.stringify(data.data));
             $scope.ports.push((data.data));
-              console.log("sp: "+$scope.ports);
+              //console.log("sp: "+$scope.ports);
           });
       }if ($scope.ports.length > 0){
       $scope.list = Ports.list = $scope.ports[0].stock_list[0];
@@ -39,8 +85,28 @@ if (window.localStorage.length>0){
   var z = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + 'GOOG' + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
   $.getJSON(z,function(data){
     $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
-    console.log($scope.stock);
+    //console.log($scope.stock);
   });
+  var y = "http://www.google.com/finance/historical?q=GOOG&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv"
+  $.get(y,function(data){
+    var lines = data.split(/\r\n|\n/);
+    var dates = [];
+    var price = [];
+    for(var i=lines.length-2;i>1;i--){
+      var d = lines[i].split(',');
+      var stamp = Date.parse(d[0]);
+      var arr = [stamp,parseFloat(d[1])];
+      //console.log(d[0]);
+      dates.push(stamp);
+      price.push(arr);
+    }
+    Ports.hist_dates = dates;
+    Ports.hist_price = price;
+    //Ports.hist_vol = vol;
+    //console.log(data);
+    //console.log(dates);
+    //console.log(price);
+  })
 
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
@@ -54,10 +120,19 @@ if (window.localStorage.length>0){
     $scope.selectedIndexStock = $index;
     Ports.list = x;
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + x + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+    var url2 = 'http://www.reuters.com/finance/stocks/companyProfile?symbol='+x;
     $.getJSON(url,function(data){
       $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
       //console.log($scope.stock);
     });
+    /*$.ajax({
+        type: "POST",
+        dataType: 'jsonp',
+        url: url2,
+        crossDomain : true,
+    }).done(function(data){
+      console.log(data);
+    })*/
   }
   //console.log(typeof(window.localStorage.length));
   if (window.localStorage.length>0){
