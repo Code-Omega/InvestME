@@ -308,10 +308,10 @@ h2 {
   height: 50px;
   display: inline;
   text-align: left;
-  -webkit-transition: all ease 0.2s;
-  -moz-transition: all ease 0.2s;
-  -o-transition: all ease 0.2s;
-  transition: all ease 0.2s; }
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  transition: all ease 0.5s; }
 
 /* line 222, ../../sass/styles.scss */
 #portbtn:hover {
@@ -337,10 +337,10 @@ h2 {
   height: 50px;
   display: inline;
   text-align: right;
-  -webkit-transition: all ease 0.2s;
-  -moz-transition: all ease 0.2s;
-  -o-transition: all ease 0.2s;
-  transition: all ease 0.2s; }
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  transition: all ease 0.5s; }
 
 /* line 247, ../../sass/styles.scss */
 #stockbtn:hover {
