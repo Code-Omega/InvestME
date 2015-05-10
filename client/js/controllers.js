@@ -17,12 +17,15 @@ demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , func
     $scope.list = data.data[0].stock_list[0];
     Ports.ports = data.data;
   });
-  $scope.selectedIndex = 0;
+  $scope.selectedIndexPort = 0;
+  $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
     $scope.list = Ports.list = x.stock_list[0];
-    $scope.selectedIndex = $index;
-    console.log($index);
-    console.log($scope.selectedIndex);
+    $scope.stocks = Ports.list.split(',');
+    $scope.selectedIndexPort = $index;
+  }
+  $scope.change_stock = function(x,$index){
+    $scope.selectedIndexStock = $index;
   }
 }]);
 
