@@ -16,10 +16,22 @@ demoControllers.controller('SearchController', ['$scope', 'Ports'  , function($s
     var list = [];
     for(var i=1;i<lines.length-1;i++){
       var d = lines[i].split(',');
+      //list.push([d[0],d[1],d[2],d[4],d[14]]);
       list.push(d[0]);
     }
     $scope.list = list;
-    console.log($scope.list);
+  })
+  $scope.filteredList;
+  $scope.incc = false;;
+  $scope.$watch(function(){
+    if($scope.filteredList!=undefined){
+      if($scope.filteredList.length <= 5){
+        $scope.incc = 'inc';
+      }else{
+        $scope.incc = 'dec';
+      }
+      console.log($scope.incc);
+    }
   })
 }]);
 demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($scope, Ports) {

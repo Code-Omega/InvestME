@@ -1,6 +1,6 @@
-<div class="content">
-  <input type="text" ng-model="query">
-  <div ng-hide="!query" ng-repeat="x in list | filter:query">
+<div class="content4">
+  <div class="s_s"><input type="text" ng-model="query"></div>
+  <div class="s_t" ng-class='incc' ng-hide="!query" ng-repeat="x in filteredList = (list | filter:query)">
     <h1>{{x}}</h1>
     <h3 ng-click="addStock(x)">Add</h3>
   </div>
