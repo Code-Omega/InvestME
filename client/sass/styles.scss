@@ -63,6 +63,10 @@ body{
   top: 150px;
   text-align: center;
 }
+.topbar{
+  position: fixed;
+  top:0;
+}
 .content{
   position: absolute;
   width: 100%;
