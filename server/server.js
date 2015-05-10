@@ -163,10 +163,10 @@ router.get('/ports',function(req, res,next) {
 //----------------------------
 
 router.post('/users',function(req,res,next){
-    console.log("==================================================");
+    /*console.log("==================================================");
     console.log(req);
     console.log("==================================================");
-    console.log(req.body);
+    console.log(req.body);*/
     if(req.body.name == 'undefined' || req.body.name == ''){
         res.status(500).json({message: 'Name is required',"data":[]});
         return;
@@ -318,6 +318,10 @@ router.delete('/users/:id',function(req,res,next){
 //----------------------------
 
 router.post('/ports',function(req,res,next){
+    if(req.body.name == 'undefined' || req.body.name == ''){
+        res.status(500).json({message: 'Name is required',"data":[]});
+        return;
+    }
   Port.create(req.body,function(err,post){
     if(err) {
         var msg = '{"message": "Server Error","data":'+JSON.stringify(post)+'}';
@@ -326,14 +330,14 @@ router.post('/ports',function(req,res,next){
         res.json(msg);
         return next(err);
     }
-    if(!post.name){
+    /*if(!post.name){
         res.status(500).json({message: 'Name field is required',"data":[]});
         return;
     }
     if(!post.deadline){
         res.status(500).json({message: 'Deadline is required',"data":[]});
         return;
-    }
+    }*/
     var msg = '{"message": "port Added","data":'+JSON.stringify(post)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 201;
