@@ -160,6 +160,9 @@ router.get('/ports',function(req, res,next) {
 //----------------------------
 
 router.post('/users',function(req,res,next){
+    console.log("==================================================");
+    console.log(req);
+    console.log("==================================================");
     console.log(req.body);
     if(req.body.name == 'undefined' || req.body.name == ''){
         res.status(500).json({message: 'Name is required',"data":[]});
