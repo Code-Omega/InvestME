@@ -2,5 +2,5 @@
 <div id="logo">
   <input ng-model="cake"></input>
   <h1>{{cake}}</h1>
-  <h1>{{ports}}</h1>
+  <h1 ng-repeat="x in ports">{{x.stock_list}}</h1>
 </div>
