@@ -188,6 +188,19 @@ if (window.localStorage.length>0){
   }
 
   $scope.addStock = function(code) {
+            if(window.localStorage.length > 0 && window.localStorage.getItem("user")){ 
+                if(window.localStorage.getItem("port")){
+                //good
+                }else{
+                    //port not selected
+                    alert("please select a portfolio first");
+                    return;
+                }
+            }else{
+                //not logged in yet
+                alert("please sign in first");
+                return;
+            }
         var dataObj = {
                 code : code,
 		};
