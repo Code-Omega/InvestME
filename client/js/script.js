@@ -6,12 +6,14 @@ $(document).ready(function () {
   });
   $("#stockbtn").click(function(e){
       $("#stockbar").fadeToggle("slow");
-      console.log("hithithithi");
+      console.log("gjkahgkashgsjkagjksg");
       e.stopPropagation();
   });
-  $("body").click(function(){
-      $("#portfolio").fadeOut("slow");
+  $("body").click(function(e){
+    $("#portfolio").fadeOut("slow");
+    if(e.target.nodeName!='P'){
       $("#stockbar").fadeOut("slow");
+    }
   });
 
 });

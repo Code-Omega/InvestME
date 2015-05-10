@@ -23,6 +23,7 @@ demoControllers.controller('MainController', ['$scope', '$http', 'Ports'  , func
     $scope.list = Ports.list = x.stock_list[0];
     $scope.stocks = Ports.list.split(',');
     $scope.selectedIndexPort = $index;
+    $("#stockbtn").click();
   }
   $scope.change_stock = function(x,$index){
     $scope.selectedIndexStock = $index;
