@@ -303,44 +303,70 @@ h2 {
   top: 25px;
   left: 25px;
   color: #a8b4be;
-  font-size: 30px;
-  width: 50px;
+  font-size: 1em;
+  width: 300px;
   height: 50px;
-  display: inline; }
+  display: inline;
+  text-align: left;
+  -webkit-transition: all ease 0.2s;
+  -moz-transition: all ease 0.2s;
+  -o-transition: all ease 0.2s;
+  transition: all ease 0.2s; }
 
-/* line 217, ../../sass/styles.scss */
+/* line 222, ../../sass/styles.scss */
+#portbtn:hover {
+  color: #d7e0e8; }
+
+/* line 225, ../../sass/styles.scss */
 #portbtn p {
-  font-size: 20px; }
+  font-size: 1em; }
 
-/* line 220, ../../sass/styles.scss */
+/* line 228, ../../sass/styles.scss */
+#portbtn p i {
+  font-size: 2em; }
+
+/* line 231, ../../sass/styles.scss */
 #stockbtn {
   position: fixed;
   z-index: 99;
   top: 25px;
   right: 25px;
   color: #a8b4be;
-  font-size: 30px;
-  width: 50px;
+  font-size: 1em;
+  width: 300px;
   height: 50px;
-  display: inline; }
+  display: inline;
+  text-align: right;
+  -webkit-transition: all ease 0.2s;
+  -moz-transition: all ease 0.2s;
+  -o-transition: all ease 0.2s;
+  transition: all ease 0.2s; }
 
-/* line 231, ../../sass/styles.scss */
+/* line 247, ../../sass/styles.scss */
+#stockbtn:hover {
+  color: #d7e0e8; }
+
+/* line 250, ../../sass/styles.scss */
 #stockbtn p {
-  font-size: 20px; }
+  font-size: 1em; }
 
-/* line 234, ../../sass/styles.scss */
+/* line 253, ../../sass/styles.scss */
+#stockbtn p i {
+  font-size: 2em; }
+
+/* line 256, ../../sass/styles.scss */
 .selectedd {
   background: #ffffff;
   color: #2c343b;
   border-right: 20px solid #d44457; }
 
-/* line 239, ../../sass/styles.scss */
+/* line 261, ../../sass/styles.scss */
 .sselected {
   background: #ffffff;
   color: #2c343b;
   border-left: 20px solid #d44457; }
 
-/* line 244, ../../sass/styles.scss */
+/* line 266, ../../sass/styles.scss */
 .unselected {
   background: #020e0e;
   color: #a8b4be; }
