@@ -41,7 +41,7 @@ demoApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/setting', {
     templateUrl: 'partials/setting.html',
-    controller: 'MainController'
+    controller: 'RegisterController'
   }).
   otherwise({
     redirectTo: '/'

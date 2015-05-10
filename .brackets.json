@@ -1,0 +1,8 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/Clue/Documents/Projects/vagrant-dev/InvestME/client/public/lib/Highstock-2.1.5/js/themes/dark-green.js",
+        "/Users/Clue/Documents/Projects/vagrant-dev/InvestME/client/public/lib/Highstock-2.1.5/js/themes/dark-unica.js",
+        "/Users/Clue/Documents/Projects/vagrant-dev/InvestME/client/js/services.js",
+        "/Users/Clue/Documents/Projects/vagrant-dev/InvestME/client/public/lib/Highstock-2.1.5/js/themes/sand-signika.js"
+    ]
+}

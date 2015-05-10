@@ -109,6 +109,7 @@ demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($sc
 
 demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
 if (window.localStorage.length>0){
+    if(window.localStorage.getItem("user")){
       console.log("hello "+window.localStorage.getItem("user"));
       $scope.ports = [];
       for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
@@ -123,6 +124,7 @@ if (window.localStorage.length>0){
       }
       Ports.ports = $scope.ports;
       window.localStorage.setItem("port",JSON.stringify($scope.ports[0]));
+    }
   } else {
       Ports.get().success(function(data){
         $scope.ports = data.data;
@@ -132,6 +134,18 @@ if (window.localStorage.length>0){
   }
 
   $scope.addPort = function(name) {
+            if(window.localStorage.length > 0){ 
+                if(window.localStorage.getItem("user") != undefined){
+                    if(window.localStorage.getItem("user") != "undefined"){
+                        //good 
+                    }
+                }
+            }else{
+                //not logged in yet
+                alert("please sign in first");
+                return;
+            }
+      
         var dataObj = {
                 name : name,
 		};
@@ -282,7 +296,7 @@ if (window.localStorage.length>0){
     })
   }
   //console.log(typeof(window.localStorage.length));
-  if (window.localStorage.length>0){
+  if (window.localStorage.length>0 && window.localStorage.getItem("user")){
     $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
     Users.user = $scope.usernameDisplay;
     Users.email = JSON.parse(window.localStorage.getItem("user")).email;
@@ -302,9 +316,9 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 }]);
 
 
-demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', function($scope, $http, $window, Users, Ports, Login){
+demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', '$location', function($scope, $http, $window, Users, Ports, Login, $location){
     console.log(window.localStorage);
-    if (window.localStorage.length>0){
+    if (window.localStorage.length>0 && window.localStorage.getItem("user")){
       $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
       Users.user = $scope.usernameDisplay;
       Users.email = JSON.parse(window.localStorage.getItem("user")).email;
@@ -343,10 +357,26 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
           $scope.list = Ports.list = $scope.ports[0].stock_list[0];
           }
           Ports.ports = $scope.ports;
+          $("#feedbtn").click();
+          $location.path('/');
         }
     }).error(function(done){
         alert("bad"+done.message);
     });
+  }
+    
+    $scope.logout = function() {
+          localStorage.removeItem("user");
+          localStorage.removeItem("port");
+          Users.user = "";
+          Users.email = "";
+          //console.log(window.localStorage);
+          $scope.usernameDisplay = "Log In";
+          $scope.ports = [];
+          $scope.list = Ports.list = "";
+          Ports.ports = $scope.ports;
+        alert("Logged Out");
+        $location.path('/register');
   }
 
     $scope.add = function(username, email,password) {
