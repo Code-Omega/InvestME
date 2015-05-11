@@ -1,12 +1,21 @@
-<div class="content2">
-<div id="stock_things">asdsa</div>
+<div  id="content2">
+<div class="stock_things">
+  <h6>Stocks to remove</h6>
+  <hr/>
+  <h2>Click stocks to remove them</h2>
+  <div ng-repeat="x in stocks" ng-click=remove_stock(x,$index)><h2>{{x}}</h2></div>
+
 </div>
+<div ng-click="modelToggle($event)" class="stock_left"></div>
+  <div ng-click="modelToggle($event)" class="stock_right"></div>
+</div>
+
 <div class="content">
     <a ng-click = "logout()" class="rdbtn" id="logout">logout</a>
     <div class="left-half">
       <hr/><h2>Edit Portfolio</h2><hr/>
         <ul>
-            <li feed ng-repeat="x in ports" ng-click="jkghwadocruqibvys = !jkghwadocruqibvys"><h2 class="leftAlign">{{x.name}}</h2></li>
+            <li feed ng-repeat="x in ports" class"btnbtn" ><h2 ng-click="modelToggle($event)" class="leftAlign btnbtn">{{x.name}}</h2></li>
         </ul>
     </div>
 

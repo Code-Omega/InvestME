@@ -150,7 +150,7 @@ demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($sc
     });*/
 }]);
 
-demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users'  , function($scope, $http,$window, Ports, Users) {
+demoControllers.controller('MainController', ['$scope', '$http','$window', 'Ports', 'Users','$rootScope'  , function($scope, $http,$window, Ports, Users,$rootScope) {
 if (window.localStorage.length>0){
     if(window.localStorage.getItem("user")){
       console.log("hello "+window.localStorage.getItem("user"));
@@ -186,7 +186,10 @@ if (window.localStorage.length>0){
                 }
             }else{
                 //not logged in yet
-                alert("please sign in first");
+                $rootScope.alert=("please sign in first");
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
                 return;
             }
 
@@ -203,9 +206,15 @@ if (window.localStorage.length>0){
             if (i != portArray.length-1) assignment = assignment+'&'
         }
         Users.updatePort(assignment).success(function(data){
-            alert(data.message);
+            $rootScope.alert=(data.message);
+            $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
             Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
-                alert(data.message);
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
                 window.localStorage.setItem("user",JSON.stringify(data.data));
                       $scope.ports = [];
                       for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
@@ -220,14 +229,26 @@ if (window.localStorage.length>0){
                       }
                       Ports.ports = $scope.ports;
             }).error(function(data){
-                alert(data.message);
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
             });
         }).error(function(data){
-            alert(data.message);
+            $rootScope.alert=(data.message);
+            $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
         });
-        alert(data.message);
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
     }).error(function(data){
-        alert(data.message);
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
     });
   }
 
@@ -237,12 +258,18 @@ if (window.localStorage.length>0){
                 //good
                 }else{
                     //port not selected
-                    alert("please select a portfolio first");
+                    $rootScope.alert=("please select a portfolio first");
+                    $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
                     return;
                 }
             }else{
                 //not logged in yet
-                alert("please sign in first");
+                $rootScope.alert=("please sign in first");
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
                 return;
             }
         var dataObj = {
@@ -260,7 +287,10 @@ if (window.localStorage.length>0){
         $scope.list = Ports.list = data.data.stock_list[0];
         $scope.change_port(data.data,0);
                     Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
-                alert(data.message);
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
                 window.localStorage.setItem("user",JSON.stringify(data.data));
                       $scope.ports = [];
                       for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
@@ -273,11 +303,17 @@ if (window.localStorage.length>0){
                       };
                       Ports.ports = $scope.ports;
             }).error(function(data){
-                alert(data.message);
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
             });
         console.log("=====================2");
     }).error(function(data){
-        alert(data.message);
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
     });
   }
 
@@ -417,9 +453,79 @@ demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , func
 }]);
 
 
-demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', '$location', function($scope, $http, $window, Users, Ports, Login, $location){
-    $scope.jkghwadocruqibvys = 0;
+demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', '$location', '$rootScope', function($scope, $http, $window, Users, Ports, Login, $location, $rootScope){
+  $scope.modelToggle = function($event){
+    console.log("this si "+ $event.target);
+    if( $event.target)
+        $("#content2").fadeToggle("slow");
+  };
 
+  $scope.remove_stock = function(x,$index){
+    $('#stock_things').toggle('fast');
+    if(window.localStorage.length > 0 && window.localStorage.getItem("user")){
+        if(window.localStorage.getItem("port")){
+        }else{
+            $rootScope.alert=("please select a portfolio first");
+            $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+            return;
+        }
+    }else{
+        $rootScope.alert=("please sign in first");
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+        return;
+    }
+      var stockArray = "";
+      console.log("list is this "+$scope.stocklist);
+      if ($scope.stocklist!=""){
+        console.log(x.length)  ;
+        console.log($scope.stocklist);
+        if($scope.stocklist.indexOf(x)==0)
+          stockArray=$scope.stocklist[0].substring(0,$scope.stocklist[0].indexOf(x))      +$scope.stocklist[0].substring($scope.stocklist[0].indexOf(x)+x.length+1);
+        else
+          stockArray=$scope.stocklist[0].substring(0,$scope.stocklist[0].indexOf(x)-1)   +$scope.stocklist[0].substring($scope.stocklist[0].indexOf(x)+x.length);
+      }
+      console.log(stockArray);
+      var assignment = 'stock_list[]='+stockArray;
+      Ports.addStockByCode(assignment).success(function(data){
+        //console.log("=====================1");
+        //console.log(data.data);
+        window.localStorage.setItem("port",JSON.stringify(data.data));
+        $scope.list = Ports.list = data.data.stock_list[0];
+        $scope.change_port(data.data,0);
+                    Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+                window.localStorage.setItem("user",JSON.stringify(data.data));
+                      $scope.ports = [];
+                      for (var i = 0; i < JSON.parse(window.localStorage.getItem("user")).portfolios.length; i++) {
+                          //console.log("hello again "+JSON.parse(window.localStorage.getItem("user")).portfolios[i]);
+                          Ports.getByID(JSON.parse(window.localStorage.getItem("user")).portfolios[i]).success(function(data){
+                              //console.log("dt: "+JSON.stringify(data.data));
+                            $scope.ports.push((data.data));
+                              //console.log("sp: "+$scope.ports);
+                          });
+                      };
+                      Ports.ports = $scope.ports;
+            }).error(function(data){
+                $rootScope.alert=(data.message);
+                $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+            });
+           //console.log("=====================2");
+      }).error(function(data){
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+      });
+  }
     console.log(window.localStorage);
     if (window.localStorage.length>0 && window.localStorage.getItem("user")){
       $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;
@@ -437,7 +543,11 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
               password : password
         };
         Login.post(email, password).success(function(done){
-        alert("good"+done.message);
+        $rootScope.alert=("good"+done.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
+
         if (done.message == "Logged in") {
           //console.log(done.data);
           //$window.localStorage.user = done.data;
@@ -464,7 +574,10 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
           $location.path('/');
         }
     }).error(function(done){
-        alert("bad"+done.message);
+        $rootScope.alert=("bad"+done.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
     });
   }
 
@@ -478,7 +591,10 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
           $scope.ports = [];
           $scope.list = Ports.list = "";
           Ports.ports = $scope.ports;
-        alert("Logged Out");
+        $rootScope.alert=("Logged Out");
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
         $location.path('/register');
   }
 
@@ -489,12 +605,18 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
 				password : password,
 		};
     Users.post(username,email,password).success(function(data){
-        alert(data.message);
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
         Users.get().success(function(data){
         $scope.users = data.data;
     });
     }).error(function(data){
-        alert(data.message);
+        $rootScope.alert=(data.message);
+        $("#alert").fadeIn("slow");setTimeout(function() {$("#alert").fadeOut("slow");},2000);
+      // Do something after 5 seconds
+
     });
   }
 
