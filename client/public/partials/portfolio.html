@@ -2,25 +2,25 @@
 <div id="logo">
   <input ng-model="cake"></input>
   <h1>{{cake}}</h1>
-  <h1 ng-repeat="x in ports">{{x.stock_list}}</h1>
+  <h1 ng-repeat="x in ports">{{x.x_list}}</h1>
 </div>-->
 <div class="content2">
-  <div id='data_chart'></div>
+  <div id="stockdata" ng-repeat="x in all_stocks" ng-class-odd="'odd'" ng-class-even="'even'">
+  <h2>{{x.Name}} ({{x.Symbol}})</h2>
+  <h3 ng-class="{'green':x.Change>0,'red':x.Change<0}">{{x.LastTradePriceOnly}} ({{x.Change}})</h3>
+  <h4>Volume - {{x.Volume}}</h4>
+  <h4>Average Volume - {{x.AverageDailyVolume}}</h4>
+  <h4>Previous Close - {{x.PreviousClose}}</h4>
+  <h4>Open - {{x.Open}}</h4>
+  <h4>Bid - {{x.Bid}}</h4>
+  <h4>Ask - {{x.Ask}}</h4>
+  <h4>Day's Range - {{x.DaysRange}}</h4>
+  <h4>Year's Range - {{x.YearRange}}</h4>
+  <h4>One Year Target Estimate - {{x.OneyrTargetPrice}}</h4>
+  <h4>Market Cap - {{x.MarketCapitalization}}</h4>
+  <h4>Dividend Yield - {{x.DividendYield}}</h4>
 
-  <div id="stockdata">
-  <h2>{{stock.Name}} ({{stock.Symbol}})</h2>
-  <h3 ng-class="{'green':stock.Change>0,'red':stock.Change<0}">{{stock.LastTradePriceOnly}} ({{stock.Change}})</h3>
-  <h4>Volume - {{stock.Volume}}</h4>
-  <h4>Average Volume - {{stock.AverageDailyVolume}}</h4>
-  <h4>Previous Close - {{stock.PreviousClose}}</h4>
-  <h4>Open - {{stock.Open}}</h4>
-  <h4>Bid - {{stock.Bid}}</h4>
-  <h4>Ask - {{stock.Ask}}</h4>
-  <h4>Day's Range - {{stock.DaysRange}}</h4>
-  <h4>Year's Range - {{stock.YearRange}}</h4>
-  <h4>One Year Target Estimate - {{stock.OneyrTargetPrice}}</h4>
-  <h4>Market Cap - {{stock.MarketCapitalization}}</h4>
-  <h4>Dividend Yield - {{stock.DividendYield}}</h4>
 
-</div>
+  </div>
+
 </div>

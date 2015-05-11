@@ -22,8 +22,8 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/login.html',
     controller: 'RegisterController',
     resolve:{
-        "check":function($window, $location){   
-            if(window.localStorage.length > 0){ 
+        "check":function($window, $location){
+            if(window.localStorage.length > 0){
                 if(window.localStorage.getItem("user") != undefined){
                     if(window.localStorage.getItem("user") != "undefined"){
                         $location.path('/setting');

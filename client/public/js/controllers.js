@@ -3,11 +3,7 @@ var demoControllers = angular.module('demoControllers', []);
 var directives = angular.module('directives', []);
 
 demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($scope, Ports) {
-  $scope.$watch(function(){
-    $scope.things = Ports.list;
-    var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
-    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:true});
-  })
+
 }]);
 demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  , function($scope,$timeout, Ports) {
   console.log("hi");
@@ -35,7 +31,7 @@ demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  ,
     }
 
     //var y = "http://www.google.com/finance/historical?q="+$scope.results[0]+"&startdate=Apr+24%2C+2015&enddate=May+8%2C+2015&output=csv";
-    var y = "https://www.quandl.com/api/v1/datasets/WIKI/"+$scope.results[0]+".csv?trim_start=2015-01-01&trim_end=2015-05-08?auth_token=f145JnDCHM7QCXLRn61V"
+    var y = "https://www.quandl.com/api/v1/datasets/WIKI/"+$scope.results[0]+".csv?trim_start=2015-01-01&trim_end=2015-05-08?auth_token=LUBeKho3ASNgG9ZBBEJ"
     var price = [];
     $.get(y,function(data){
       $scope.$watch(function(){
@@ -363,6 +359,27 @@ if (window.localStorage.length>0){
       } else $scope.stocks = [];
     $scope.selectedIndexPort = $index;
     $("#stockbtn").click();
+    $scope.feeed();
+    $scope.find_funds();
+  }
+  $scope.find_funds = function(){
+    var stock;
+    $scope.all_stocks = [];
+    console.log(Ports.list);
+    if(Ports.list!=undefined)
+      var arr = Ports.list.split(',');
+    else
+      var arr = ["GOOG","AAPL","MSFT","TSLA"];
+    $rootScope.alert = "Loading";$("#alert").fadeIn("slow");
+    for(var i=0;i<arr.length;i++){
+      var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + arr[i] + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+      $.getJSON(url,function(data){
+        $scope.$apply(function(){stock = data.query.results.quote;
+        $scope.all_stocks.push(stock);
+        });
+      })
+    }
+    $rootScope.alert = "";$("#alert").fadeOut("slow");
   }
   $scope.change_stock = function(x,$index){
     $scope.selectedIndexStock = $index;
@@ -406,6 +423,16 @@ if (window.localStorage.length>0){
   }
   $scope.$watch(function(){
     $scope.usernameDisplay = Users.user;
+  })
+  $scope.feeed = function(){
+    $scope.things = Ports.list;
+    var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
+    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:true});
+  }
+  $scope.$watch(function(){
+    $scope.things = Ports.list;
+    var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
+    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:true});
   })
 }]);
 

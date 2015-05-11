@@ -18,7 +18,4 @@ $(document).ready(function () {
       $("#stockbar").fadeOut("slow");
     }
   });
-
-
-
 });

@@ -15,7 +15,7 @@
     <div class="left-half">
       <hr/><h2>Edit Portfolio</h2><hr/>
         <ul>
-            <li feed ng-repeat="x in ports" class"btnbtn" ><h2 ng-click="modelToggle($event)" class="leftAlign btnbtn">{{x.name}}</h2></li>
+            <li feed ng-repeat="x in ports" class"btnbtn" ><h2 ng-click="modelToggle($event); change_port(x,$index)" class="leftAlign btnbtn">{{x.name}}</h2></li>
         </ul>
     </div>
 

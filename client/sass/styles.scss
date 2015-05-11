@@ -303,12 +303,14 @@ h5{
 #stockdata{
   background-color: #a8b4be;
   color: rgb (2,14,14);
-  margin: 0 auto;
-  width: 850px;
+  width: 25%;
+  height:42rem;
   z-index: 1;
   padding-top:100px;
   padding-left:50px;
   padding-bottom: 20px;
+  display:inline;
+  float:left;
 }
 #chartDiv {
     padding-left: 0;
