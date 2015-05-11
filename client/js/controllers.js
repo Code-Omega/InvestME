@@ -6,7 +6,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
   $scope.$watch(function(){
     $scope.things = Ports.list;
     var str = "http://finance.yahoo.com/rss/headline?s="+Ports.list;
-    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
+    $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:true});
   })
 }]);
 demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  , function($scope,$timeout, Ports) {
@@ -164,6 +164,7 @@ if (window.localStorage.length>0){
           });
       }if ($scope.ports.length > 0){
       $scope.list = Ports.list = $scope.ports[0].stock_list[0];
+      $scope.currPort = $scope.ports[0];
       }
       Ports.ports = $scope.ports;
       window.localStorage.setItem("port",JSON.stringify($scope.ports[0]));
@@ -177,10 +178,10 @@ if (window.localStorage.length>0){
   }
 
   $scope.addPort = function(name) {
-            if(window.localStorage.length > 0){ 
+            if(window.localStorage.length > 0){
                 if(window.localStorage.getItem("user") != undefined){
                     if(window.localStorage.getItem("user") != "undefined"){
-                        //good 
+                        //good
                     }
                 }
             }else{
@@ -188,7 +189,7 @@ if (window.localStorage.length>0){
                 alert("please sign in first");
                 return;
             }
-      
+
         var dataObj = {
                 name : name,
 		};
@@ -231,7 +232,7 @@ if (window.localStorage.length>0){
   }
 
   $scope.addStock = function(code) {
-            if(window.localStorage.length > 0 && window.localStorage.getItem("user")){ 
+            if(window.localStorage.length > 0 && window.localStorage.getItem("user")){
                 if(window.localStorage.getItem("port")){
                 //good
                 }else{
@@ -314,6 +315,7 @@ if (window.localStorage.length>0){
   $scope.selectedIndexPort = 0;
   $scope.selectedIndexStock = 0;
   $scope.change_port = function(x,$index){
+    $scope.currPort = x;
     window.localStorage.setItem("port",JSON.stringify(x));
     $scope.stocklist = x.stock_list;
     $scope.list = Ports.list = x.stock_list[0];
@@ -420,7 +422,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
         alert("bad"+done.message);
     });
   }
-    
+
     $scope.logout = function() {
           localStorage.removeItem("user");
           localStorage.removeItem("port");
