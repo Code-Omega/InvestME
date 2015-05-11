@@ -472,11 +472,11 @@ h2 {
 
 /* line 357, ../../sass/styles.scss */
 .inc {
-  height: 50px; }
+  height: 150px; }
 
 /* line 360, ../../sass/styles.scss */
-.dec {
-  height: 150px; }
+.inc {
+  height: 50px; }
 
 /* line 363, ../../sass/styles.scss */
 .content4 input[type="text"] {

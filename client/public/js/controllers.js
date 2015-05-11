@@ -9,7 +9,7 @@ demoControllers.controller('FeedController', ['$scope', 'Ports'  , function($sco
     $('#test').rssfeed(str, {limit: 25, header:false, content:false, media:false, date:false});
   })
 }]);
-demoControllers.controller('SearchController', ['$scope', 'Ports'  , function($scope, Ports) {
+demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  , function($scope,$timeout, Ports) {
   console.log("hi");
   $.get("../data/sp500.csv",function(data){
     var lines = data.split(/\r\n|\n/);
@@ -21,18 +21,61 @@ demoControllers.controller('SearchController', ['$scope', 'Ports'  , function($s
     }
     $scope.list = list;
   })
-  $scope.filteredList;
-  $scope.incc = false;;
-  $scope.$watch(function(){
-    if($scope.filteredList!=undefined){
-      if($scope.filteredList.length <= 5){
-        $scope.incc = 'inc';
-      }else{
-        $scope.incc = 'dec';
-      }
-      console.log($scope.incc);
+  var tempFilterText = '',
+      filterTextTimeout;
+  $scope.$watch('query',function(val){
+    if(filterTextTimeout) $timeout.cancel(filterTextTimeout);
+    tempFilterText = val;
+    filterTextTimeout = $timeout(function() {
+            $scope.filterText = tempFilterText;
+        }, 250); // delay 250 ms
+    if($scope.results==undefined){
+      $scope.results = [];
+      $scope.results[0] = "GOOG"
     }
-  })
+
+    var y = "http://www.google.com/finance/historical?q="+$scope.results[0]+"&startdate=Apr+24%2C+2015&enddate=May+8%2C+2015&output=csv";
+    var price = [];
+    $.get(y,function(data){
+      $scope.$watch(function(){
+      var lines = data.split(/\r\n|\n/);
+      for(var i=lines.length-2;i>1;i--){
+        var d = lines[i].split(',');
+        price.push([Date.parse(d[0]),parseFloat(d[1])]);
+        //console.log(price);
+      }
+      $scope.dd = price;
+      //console.log(data);
+    });
+  });
+  });
+  $scope.$watch('dd',function(){
+    console.log($scope.dd);
+      $('#search_chart').highcharts('StockChart',{
+        rangeSelector : {
+            enabled : 0
+        },
+        chart:{
+          height:150,
+        },
+        scrollbar:{
+          enabled: 0
+        },
+        navigator:{
+          enabled:0
+        },
+        title : {
+            text : $scope.results[0]+' Stock Price'
+        },
+        series : [{
+            name : $scope.results[0],
+            data : $scope.dd,
+            tooltip: {
+            valueDecimals: 2
+            }
+        }]
+      });
+  });
 }]);
 demoControllers.controller('ChartController', ['$scope', 'Ports'  , function($scope, Ports) {
   $scope.$watch(function(){
