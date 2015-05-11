@@ -242,6 +242,24 @@ router.get('/users/:id',function(req,res,next){
 });
 
 router.put('/users/:id',function(req,res,next){
+    if(req.body.name == 'undefined' || req.body.name == ''){
+        res.status(500).json({message: 'Name is required',"data":[]});
+        return;
+    }
+    if(req.body.email == 'undefined' || req.body.email == ''){
+        res.status(500).json({message: 'Email is required',"data":[]});
+        return;
+    }
+    if(req.body.password == 'undefined' || req.body.password == ''){
+        res.status(500).json({message: 'Password is required',"data":[]});
+        return;
+    }
+    if(req.body.password){
+          var bcrypt = require('bcrypt');
+          var hash = bcrypt.hashSync(req.body.password, 10);
+          console.log("hash: "+hash);
+          req.body.password = hash;
+    }
   User.findOneAndUpdate({_id:req.params.id},req.body,function(err,put){
     if(err) {
         if (err.path == '_id') {
@@ -268,14 +286,14 @@ router.put('/users/:id',function(req,res,next){
         res.json(msg);
         return;
     }
-    if(!put.name){
+    /*if(!put.name){
         res.status(500).json({message: 'Name field is required',"data":[]});
         return;
     }
     if(!put.email){
         res.status(500).json({message: 'Email field is required',"data":[]});
         return;
-    }
+    }*/
     var msg = '{"message": "User Updated",'+'"data":'+JSON.stringify(put)+'}';
     msg = JSON.parse(msg);
     res.statusCode = 200;
