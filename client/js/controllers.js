@@ -31,7 +31,7 @@ demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  ,
     }
 
     //var y = "http://www.google.com/finance/historical?q="+$scope.results[0]+"&startdate=Apr+24%2C+2015&enddate=May+8%2C+2015&output=csv";
-    var y = "https://www.quandl.com/api/v1/datasets/WIKI/"+$scope.results[0]+".csv?trim_start=2015-01-01&trim_end=2015-05-08?auth_token=LUBeKho3ASNgG9ZBBEJ"
+    var y = "https://www.quandl.com/api/v1/datasets/WIKI/"+$scope.results[0]+".csv?trim_start=2015-01-01&trim_end=2015-05-08?auth_token=f145JnDCHM7QCXLRn61V"
     var price = [];
     $.get(y,function(data){
       $scope.$watch(function(){
