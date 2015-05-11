@@ -34,7 +34,8 @@ demoControllers.controller('SearchController', ['$scope', '$timeout', 'Ports'  ,
       $scope.results[0] = "GOOG"
     }
 
-    var y = "http://www.google.com/finance/historical?q="+$scope.results[0]+"&startdate=Apr+24%2C+2015&enddate=May+8%2C+2015&output=csv";
+    //var y = "http://www.google.com/finance/historical?q="+$scope.results[0]+"&startdate=Apr+24%2C+2015&enddate=May+8%2C+2015&output=csv";
+    var y = "https://www.quandl.com/api/v1/datasets/WIKI/"+$scope.results[0]+".csv?trim_start=2015-01-01&trim_end=2015-05-08?auth_token=f145JnDCHM7QCXLRn61V"
     var price = [];
     $.get(y,function(data){
       $scope.$watch(function(){
@@ -326,7 +327,9 @@ if (window.localStorage.length>0){
     $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
     //console.log($scope.stock);
   });
-  var y = "http://www.google.com/finance/historical?q=GOOG&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv"
+  //var y = "http://www.google.com/finance/historical?q=GOOG&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv"
+  //'https://www.quandl.com/api/v1/datasets/WIKI/BAC.csv?auth_token=f145JnDCHM7QCXLRn61V'
+  var y = "https://www.quandl.com/api/v1/datasets/WIKI/BAC.csv?auth_token=f145JnDCHM7QCXLRn61V"
   $.get(y,function(data){
     var lines = data.split(/\r\n|\n/);
     var dates = [];
@@ -365,7 +368,8 @@ if (window.localStorage.length>0){
     $scope.selectedIndexStock = $index;
     Ports.list = x;
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + x + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
-    var url2 = 'http://www.google.com/finance/historical?q='+x+'&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv';
+    //var url2 = 'http://www.google.com/finance/historical?q='+x+'&startdate=May+11%2C+2005&enddate=May+10%2C+2015&output=csv';
+    var url2 = "https://www.quandl.com/api/v1/datasets/WIKI/"+x+".csv?auth_token=f145JnDCHM7QCXLRn61V"
     $.getJSON(url,function(data){
       $scope.$apply(function(){$scope.stock = Ports.curStock = data.query.results.quote;});
       //console.log($scope.stock);
@@ -619,7 +623,7 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
 
     });
   }
-    
+
     $scope.edit = function(username, email,password) {
         var dataObj = {
                 name : username,
