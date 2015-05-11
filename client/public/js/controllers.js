@@ -619,6 +619,25 @@ demoControllers.controller("RegisterController",['$scope', '$http', '$window', '
 
     });
   }
+    
+    $scope.edit = function(username, email,password) {
+        var dataObj = {
+                name : username,
+				email : email,
+				password : password,
+		};
+    Users.edit(username,email,password).success(function(data){
+        alert(data.message);
+        Users.getByID(JSON.parse(window.localStorage.getItem("user"))._id).success(function(data){
+          window.localStorage.setItem("user",JSON.stringify(data.data));
+          console.log(data.data);
+          Users.user = data.data.name;
+          Users.email = data.data.email;
+    });
+    }).error(function(data){
+        alert(data.message);
+    });
+  }
 
 }]);
 

@@ -52,6 +52,14 @@ angular.module('demoServices', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
+            factory.edit = function(username,email,password){
+                return $http({
+                    method: 'PUT',
+                    url: baseUrl+'/api/users/'+JSON.parse(window.localStorage.getItem("user"))._id,
+                    data: "name=" + username+ "&email=" + email + "&password=" + password,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
             factory.updatePort = function(Assignment) {
                 return $http({
                     method: 'PUT',
