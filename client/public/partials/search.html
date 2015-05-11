@@ -2,8 +2,8 @@
   <div id="search_chart"></div>
   <div class="s_s"><input type="text" ng-model="query"></div>
   <div class="s_t" ng-hide="!query" ng-repeat="x in list | filter:query as results">
-    <h1>{{x}}</h1>
-    <h3 ng-click="addStock(x)">Add</h3>
+      <h1 class="left-ser leftAlign">{{x}}</h1>
+      <a class=" right-ser rightAlign" ng-click="addStock(x)">Add</a>
   </div>
 </h1>
 </div>

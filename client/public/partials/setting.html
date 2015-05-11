@@ -1,7 +1,20 @@
-<div class="content"> 
-    <a ng-click = "logout()" class="rdbtn">logout</a>
-    <ul>
-        <li feed ng-repeat="x in ports" ng-click=change_port(x,$index) ng-class="{'selectedd':$index==selectedIndexPort,'unselected':$index!=selectedIndexPort}">               <p>{{x.name}}</p></li>
-        <li class="unselected"><h3 ng-click="addPort(nameIN)">Add</h3> <input class="form-control" ng-model="nameIN" placeholder="portfolio name"></li>
-    </ul>
+<div class="content2">
+<div id="stock_things">asdsa</div>
+</div>
+<div class="content">
+    <a ng-click = "logout()" class="rdbtn" id="logout">logout</a>
+    <div class="left-half">
+      <hr/><h2>Edit Portfolio</h2><hr/>
+        <ul>
+            <li feed ng-repeat="x in ports" ng-click="jkghwadocruqibvys = !jkghwadocruqibvys"><h2 class="leftAlign">{{x.name}}</h2></li>
+        </ul>
+    </div>
+
+    <div class="right-half">
+      <hr/><h2>Edit Info</h2><hr/>
+      <input class="form-control" id="nameIN" ng-model="nameIN" placeholder="username"><br>
+      <input class="form-control" id="emailIN" ng-model="emailIN" placeholder="email"><br>
+      <input class="form-control" id="passwordIN" ng-model="passwordIN" placeholder="password">
+      <a ng-click = "add(nameIN, emailIN, passwordIN)" class="rdbtn">Submit</a>
+    </div>
 </div>

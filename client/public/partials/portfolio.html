@@ -5,6 +5,8 @@
   <h1 ng-repeat="x in ports">{{x.stock_list}}</h1>
 </div>-->
 <div class="content2">
+  <div id='data_chart'></div>
+
   <div id="stockdata">
   <h2>{{stock.Name}} ({{stock.Symbol}})</h2>
   <h3 ng-class="{'green':stock.Change>0,'red':stock.Change<0}">{{stock.LastTradePriceOnly}} ({{stock.Change}})</h3>
@@ -19,7 +21,6 @@
   <h4>One Year Target Estimate - {{stock.OneyrTargetPrice}}</h4>
   <h4>Market Cap - {{stock.MarketCapitalization}}</h4>
   <h4>Dividend Yield - {{stock.DividendYield}}</h4>
-
 
 </div>
 </div>

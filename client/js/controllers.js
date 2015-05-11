@@ -370,11 +370,56 @@ if (window.localStorage.length>0){
 }]);
 
 demoControllers.controller('DataController', ['$scope', '$http', 'Ports'  , function($scope, $http, Ports) {
-
+    /*var seriesOptions = [],
+    seriesCounter = 0,
+    names = ["GOOG","AAPL","MSFT","TSLA","BAC","QQQ","NOK","GE"],
+    createChart = function () {
+      $('#data_chart').highcharts('StockChart', {
+        rangeSelector: {
+          selected: 4
+        },
+        yAxis: {
+          labels: {
+            formatter: function () {
+              return (this.value > 0 ? ' + ' : '') + this.value + '%';
+            }
+        },
+        plotLines: [{
+          value: 0,
+          width: 2,
+           color: 'silver'
+        }]
+      },
+      plotOptions: {
+        series: {
+          compare: 'percent'
+        }
+      },
+      tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+        valueDecimals: 2
+      },
+        series: seriesOptions
+    });
+    };
+    $.each(names, function (i, name) {
+       $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=' + name.toLowerCase() + '-c.json&callback=?',    function (data) {
+            seriesOptions[i] = {
+                name: name,
+                data: data
+            };
+            seriesCounter += 1;
+            if (seriesCounter === names.length) {
+               createChart();
+            }
+        });
+    });*/
 }]);
 
 
 demoControllers.controller("RegisterController",['$scope', '$http', '$window', 'Users', 'Ports', 'Login', '$location', function($scope, $http, $window, Users, Ports, Login, $location){
+    $scope.jkghwadocruqibvys = 0;
+
     console.log(window.localStorage);
     if (window.localStorage.length>0 && window.localStorage.getItem("user")){
       $scope.usernameDisplay = JSON.parse(window.localStorage.getItem("user")).name;

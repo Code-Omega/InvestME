@@ -25,7 +25,7 @@ angular.module('demoServices', [])
             factory.post = function(email,password) {
                 return $http({
                     method: 'POST',
-                    url: 'http://localhost:4000/api/login',
+                    url: 'http://104.131.110.21:4000/api/login',
                     data: "email=" + email + "&password="+password,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
@@ -34,7 +34,7 @@ angular.module('demoServices', [])
     })
     .factory('Users', function($http, $window) {
         var factory = {};
-        var baseUrl = "http://localhost:4000";
+        var baseUrl = "http://104.131.110.21:4000";
             factory.user;
             factory.email;
             factory.get = function() {
@@ -68,7 +68,7 @@ angular.module('demoServices', [])
     })
     .factory('Ports', function($http, $window) {
         var factory = {};
-        var baseUrl = "http://localhost:4000";
+        var baseUrl = "http://104.131.110.21:4000";
             factory.get = function() {
                 //var baseUrl = $window.sessionStorage.baseurl;
                 return $http.get(baseUrl+'/api/ports');

@@ -43,6 +43,20 @@ h2{
   -moz-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
+.blbtn {
+
+  padding: 0.5em 0.8em;
+  background-color: rgba(212, 68, 87, 0.9);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-transform: uppercase;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
 .odd{
     background-color: #ECECEC;
     margin-top: 5px;
@@ -87,6 +101,10 @@ h2{
   top: 150px;
   text-align: center;
 }
+h5{
+  color:#2b908f;
+  font-size:4.8rem;
+}
 .topbar{
   position: fixed;
   top:0;
@@ -105,6 +123,16 @@ h2{
   padding-right: 10%;
   right: 0;
   width: 50%;
+}
+.left-ser{
+  display:inline-block;
+  left: 0;
+  width: 80%;
+}
+.right-ser{
+  display:inline-block;
+  right: 0;
+  width: 5%;
 }
 #test{
   position: absolute;
@@ -383,4 +411,17 @@ h2{
   -moz-transition: all ease 0.5s;
   -o-transition: all ease 0.5s;
   transition: all ease 0.5s;
+}
+#logout{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+}
+#stock_things{
+  margin: 0 auto;
+
+  height:100%;
+  z-index:999;
+  width:30%;
+  background: rgb(255, 21, 0);
 }
