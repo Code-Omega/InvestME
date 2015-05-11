@@ -1,0 +1,7 @@
+<div class="content"> 
+    <a ng-click = "logout()" class="rdbtn">logout</a>
+    <ul>
+        <li feed ng-repeat="x in ports" ng-click=change_port(x,$index) ng-class="{'selectedd':$index==selectedIndexPort,'unselected':$index!=selectedIndexPort}">               <p>{{x.name}}</p></li>
+        <li class="unselected"><h3 ng-click="addPort(nameIN)">Add</h3> <input class="form-control" ng-model="nameIN" placeholder="portfolio name"></li>
+    </ul>
+</div>
